@@ -49,6 +49,7 @@ run_parent_bound() {
 	status=0
 	wait "$child_pid" || status=$?
 	kill -TERM "$watchdog_pid" 2>/dev/null || :
+	kill -KILL "$watchdog_pid" 2>/dev/null || :
 	wait "$watchdog_pid" 2>/dev/null || :
 	trap - EXIT HUP INT TERM
 	return "$status"
