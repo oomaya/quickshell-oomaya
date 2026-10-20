@@ -1,0 +1,15 @@
+# Compiled binaries
+tools/dwm-quickshell-state-bin
+tools/mv-shim
+
+# Standalone test fixtures and mono-repo links
+/config/
+/scripts
+/dwm.c
+/config.def.h
+/config.mk
+/CHANGELOG.md
+/docs/
+bin/dwm-packages.sh
+bin/dwm-session-launch
+bin/dwm-panel-settings
