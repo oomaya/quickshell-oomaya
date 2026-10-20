@@ -58,8 +58,9 @@ find_qmllint() {
 		return 0
 	fi
 
-	for cmd in qmllint-qt6 qmllint /usr/lib64/qt6/bin/qmllint /usr/lib/qt6/bin/qmllint; do
-		if command -v "$cmd" >/dev/null 2>&1; then
+	for cmd in $HOME/Qt/*/gcc_64/bin/qmllint qmllint-qt6 qmllint \
+		/usr/lib64/qt6/bin/qmllint /usr/lib/qt6/bin/qmllint; do
+		if [ -x "$cmd" ] || command -v "$cmd" >/dev/null 2>&1; then
 			printf '%s\n' "$cmd"
 			return 0
 		fi
@@ -131,6 +132,9 @@ discover_qml_roots() {
 	done
 	append_root_if_exists /usr/local/lib64/qt6/qml
 	append_root_if_exists /usr/local/lib/qt6/qml
+	for qt_root in $HOME/Qt/*/gcc_64/qml; do
+		append_root_if_exists "$qt_root"
+	done
 
 	if command -v qmake6 >/dev/null 2>&1; then
 		qmake6 -query QT_INSTALL_QML 2>/dev/null || true
@@ -170,7 +174,7 @@ qmllint=$(find_qmllint)
 project_root=$(find_root)
 
 if [ -z "$files" ]; then
-	files=$(find "$project_root" -type f -name '*.qml' | sort)
+	files=$(find -L "$project_root" -type f -name '*.qml' | sort)
 fi
 
 [ -n "$files" ] || {
@@ -210,7 +214,10 @@ $qml_roots
 EOF
 fi
 
-set -- "$@" -I "$tmp" -I "$project_root"
+set -- "$@" -I "$tmp" -I "$project_root" \
+	--unqualified=info --missing-property=info --incompatible-type=info \
+	--non-list-property=info --read-only-property=info \
+	--signal-handler-parameters=info --import=info --missing-type=info
 
 export QML_IMPORT_PATH="$project_root"
 if [ -n "$build_dirs" ]; then
