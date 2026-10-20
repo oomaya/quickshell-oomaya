@@ -35,6 +35,10 @@ for name in quickshell xprop dwm-quickshell-launcher dwm-quickshell-controlcente
 	stub_command "$name"
 done
 
+if [ -x "$repo/tools/mv-shim" ]; then
+	cp "$repo/tools/mv-shim" "$work/bin/mv"
+fi
+
 cat >"$work/bin/quickshell" <<'SH'
 #!/bin/sh
 case ${1:-} in

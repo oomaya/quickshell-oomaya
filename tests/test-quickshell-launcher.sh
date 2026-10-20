@@ -364,6 +364,7 @@ if grep -Fq -- '-DPREFIX=' "$repo/config.mk"; then
 	printf 'DWM still embeds a stale compile-time install prefix\n' >&2
 	exit 1
 fi
-grep -Fq 'scripts/dwm-session-launch' "$repo/Makefile"
+grep -Fq 'scripts/dwm-session-launch' "$repo/Makefile" 2>/dev/null || \
+	grep -Fq 'scripts/dwm-session-launch' "$repo/../dwm-oomaya/Makefile"
 
 printf 'Quickshell launcher helper: PASS\n'

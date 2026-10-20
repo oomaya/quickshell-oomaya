@@ -79,6 +79,7 @@ run_parent_bound() {
 	status=0
 	wait "$child_pid" || status=$?
 	kill -TERM "$watchdog_pid" 2>/dev/null || :
+	kill -KILL "$watchdog_pid" 2>/dev/null || :
 	wait "$watchdog_pid" 2>/dev/null || :
 	trap - EXIT HUP INT TERM
 	return "$status"
@@ -1331,6 +1332,9 @@ session_resolve_dwm() {
 session_lock() {
 	session_lock_helper=$repo_dir/scripts/dwm-lock
 	if [ ! -x "$session_lock_helper" ]; then
+		session_lock_helper=$repo_dir/../dwm-oomaya/scripts/dwm-lock
+	fi
+	if [ ! -x "$session_lock_helper" ]; then
 		session_lock_helper=$(command -v dwm-lock 2>/dev/null || true)
 	fi
 	[ -n "$session_lock_helper" ] || {
@@ -1422,6 +1426,9 @@ terminal_run() {
 health() {
 	health_helper=$repo_dir/scripts/dwm-system-health
 	if [ ! -x "$health_helper" ]; then
+		health_helper=$repo_dir/../dwm-oomaya/scripts/dwm-system-health
+	fi
+	if [ ! -x "$health_helper" ]; then
 		health_helper=$(command -v dwm-system-health 2>/dev/null || true)
 	fi
 	if [ -z "$health_helper" ]; then
@@ -1511,6 +1518,9 @@ themes() {
 theme_set() {
 	name=$1
 	theme_helper=$repo_dir/scripts/dwm-settings-theme
+	if [ ! -x "$theme_helper" ]; then
+		theme_helper=$repo_dir/../dwm-oomaya/scripts/dwm-settings-theme
+	fi
 	theme_managed_source=
 	if [ -x "$theme_helper" ] && [ -f "$repo_dir/config/themes.toml" ]; then
 		theme_managed_source=$repo_dir/config/themes.toml
@@ -1739,7 +1749,9 @@ restart_networkmanager() {
 }
 
 dependency_check() {
-	terminal_run "$repo_dir/scripts/check-deps.sh; printf '\\nPress enter to close...'; read -r _"
+	check_script=$repo_dir/scripts/check-deps.sh
+	[ -x "$check_script" ] || check_script=$repo_dir/../dwm-oomaya/scripts/check-deps.sh
+	terminal_run "$check_script; printf '\\nPress enter to close...'; read -r _"
 }
 
 install_missing_deps() {

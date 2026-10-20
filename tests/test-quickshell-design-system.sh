@@ -16,14 +16,16 @@ qml_packages=$(bash -c '. "$1"; dwm_packages fedora qml-validation' sh \
 [ "$(printf '%s\n' "$qml_packages" | wc -l)" -eq 2 ]
 printf '%s\n' "$qml_packages" | grep -Fx quickshell >/dev/null
 printf '%s\n' "$qml_packages" | grep -Fx qt6-qtdeclarative-devel >/dev/null
-[ "$(grep -Fc 'dwm_packages fedora qml-validation' "$repo/.github/workflows/c-cpp.yml")" -eq 2 ]
-for package in quickshell qt6-qtdeclarative-devel; do
-	if grep -Eq "(^|[^[:alnum:]_+-])$package([^[:alnum:]_+-]|-[0-9]|$)" \
-		"$repo/.github/workflows/c-cpp.yml"; then
-		printf '%s\n' "CI hard-codes $package instead of using the qml-validation profile." >&2
-		exit 1
-	fi
-done
+if [ -f "$repo/.github/workflows/c-cpp.yml" ]; then
+	[ "$(grep -Fc 'dwm_packages fedora qml-validation' "$repo/.github/workflows/c-cpp.yml")" -eq 2 ]
+	for package in quickshell qt6-qtdeclarative-devel; do
+		if grep -Eq "(^|[^[:alnum:]_+-])$package([^[:alnum:]_+-]|-[0-9]|$)" \
+			"$repo/.github/workflows/c-cpp.yml"; then
+			printf '%s\n' "CI hard-codes $package instead of using the qml-validation profile." >&2
+			exit 1
+		fi
+	done
+fi
 
 for token in \
 	popupBackground popupBorder menuActionText menuHoverBackground \
