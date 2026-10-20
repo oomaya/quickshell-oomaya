@@ -77,14 +77,11 @@ ColumnLayout {
         function onBlockedChanged() { Qt.callLater(root.restoreReconciliationFocus); }
         function onReleased() { Qt.callLater(root.restoreReconciliationFocus); }
     }
-    Connections {
-        target: root.reconciliationFocus
-        function onEnabledChanged() { Qt.callLater(root.restoreReconciliationFocus); }
-    }
-    Connections {
-        target: root.focusReturn
-        function onEnabledChanged() { Qt.callLater(root.restoreFocus); }
-    }
+    readonly property bool reconciliationFocusEnabled: !!(root.reconciliationFocus && root.reconciliationFocus.enabled)
+    onReconciliationFocusEnabledChanged: Qt.callLater(root.restoreReconciliationFocus)
+
+    readonly property bool focusReturnEnabled: !!(root.focusReturn && root.focusReturn.enabled)
+    onFocusReturnEnabledChanged: Qt.callLater(root.restoreFocus)
     Connections {
         target: root.model
         function onSettingsVisibleChanged() {
