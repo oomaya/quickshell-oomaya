@@ -1,0 +1,329 @@
+--- a/install.sh	2026-10-21 14:17:13.537385547 +0900
++++ b/install.sh	2026-10-21 14:17:13.538726286 +0900
+@@ -115,6 +115,11 @@
+ ${BOLD}Sovereign Fleet Operations:${NC}
+   (no flags)             Run full pipeline (Pre-flight -> Stow -> Reload -> Verify -> Cleanup)
+   --sync                 Unified Fleet Sync: atomic pull for dotfiles, vault & skills, re-stow & reload
++  --fleet                Roll out fleet-sync to all online Linux Tailscale peers (canary first, sequential)
++    --dry-run, -n          Preview targets/RTT/actions only; no commands run, no logs written
++    --parallel             Dispatch to peers concurrently instead of sequentially
++    --canary <node|local>  Canary node (default: local); rollout aborts unless it reports 0 Failed
++    --nodes a,b            Restrict rollout to the named peers
+   --stow                 Only deploy / re-stow dotfile packages with collision quarantine
+   --verify               Run the automated health check suite (verify.sh)
+   --profile [PROFILE]    Deploy profile:
+@@ -1060,16 +1065,277 @@
+ }
+ 
+ # ------------------------------------------------------------------------------
++# Fleet Dispatcher (--fleet): canary gate -> Tailscale SSH rollout (sequential default)
++# v1 scope: no automated multi-node rollback (recover per node via git reset).
++# ------------------------------------------------------------------------------
++strip_ansi() { sed 's/\x1b\[[0-9;]*m//g'; }
++
++# Echo "PASSED FAILED WARNINGS" from the last 'Verification Summary' line in a log (empty if absent)
++log_summary() {
++  strip_ansi < "$1" 2>/dev/null \
++    | sed -n 's/.*Verification Summary: \([0-9]*\) Passed, \([0-9]*\) Failed, \([0-9]*\) Warnings.*/\1 \2 \3/p' \
++    | tail -n 1
++}
++
++# Echo unique [WARN] lines of a log (exact text, never just a count)
++log_warnings() {
++  strip_ansi < "$1" 2>/dev/null | grep -F '[WARN]' | sed 's/^[[:space:]!]*//' | sort -u || true
++}
++
++# Emit "ip|name|state|os" per tailnet peer. state: SELF | ONLINE | OFFLINE | SKIP-NONLINUX
++fleet_discover() {
++  local self_ip
++  self_ip="$(tailscale ip -4 2>/dev/null | head -n 1 || true)"
++  tailscale status 2>/dev/null | awk -v self="$self_ip" '
++    NF >= 4 && $1 ~ /^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$/ {
++      state = "ONLINE"
++      if ($0 ~ /offline/) state = "OFFLINE"
++      else if ($4 != "linux") state = "SKIP-NONLINUX"
++      if ($1 == self) state = "SELF"
++      print $1 "|" $2 "|" state "|" ($4 ~ /^[A-Za-z]+$/ ? $4 : "unknown")
++    }'
++}
++
++fleet_rtt() {
++  timeout 5 tailscale ping -c 1 --timeout 2s "$1" 2>/dev/null \
++    | sed -n 's/.* in \([0-9.]*[a-z]*\)$/\1/p' | head -n 1 || true
++}
++
++# Run fleet-sync on a remote node with its real login-shell environment; log + rc file per node
++fleet_run_node() {
++  local ip="$1" name="$2" logdir="$3" rc=0 start end
++  start=$(date +%s)
++  ssh -n -o BatchMode=yes -o ConnectTimeout=5 "$ip" \
++    "bash -l -c 'export PATH=\"\$HOME/.local/bin:\$PATH\"; export DISPLAY=\${DISPLAY:-:0}; export XDG_RUNTIME_DIR=\${XDG_RUNTIME_DIR:-/run/user/\$(id -u)}; fleet-sync'" \
++    > "$logdir/$name.log" 2>&1 || rc=$?
++  end=$(date +%s)
++  printf '%s %s\n' "$rc" "$((end - start))" > "$logdir/$name.rc"
++}
++
++# Run the local pipeline (canary) with the same log/rc contract
++fleet_run_local() {
++  local name="$1" logdir="$2" rc=0 start end
++  start=$(date +%s)
++  "$DOTFILES_DIR/install.sh" --sync > "$logdir/$name.log" 2>&1 || rc=$?
++  end=$(date +%s)
++  printf '%s %s\n' "$rc" "$((end - start))" > "$logdir/$name.rc"
++}
++
++# Echo "STATUS|PASSED|FAILED|WARNINGS|SECONDS|REASON" for a finished node.
++# Gate rule (design amendment): FAIL iff rc != 0, no verification summary, or Failed > 0. Warnings never fail.
++fleet_classify() {
++  local name="$1" logdir="$2" rc=1 dur=0 sum p="-" f="-" w="-" status reason=""
++  [[ -f "$logdir/$name.rc" ]] && read -r rc dur < "$logdir/$name.rc"
++  sum="$(log_summary "$logdir/$name.log")"
++  [[ -n "$sum" ]] && read -r p f w <<< "$sum"
++  if (( rc != 0 )); then
++    status="FAIL"
++    if (( rc == 255 )); then reason="ssh failed/unreachable (rc=255)"; else reason="exit code $rc"; fi
++    [[ "$f" =~ ^[0-9]+$ ]] && (( f > 0 )) && reason="$reason; $f verification check(s) failed"
++  elif [[ -z "$sum" ]]; then
++    status="FAIL"; reason="no verification summary in log"
++  elif (( f > 0 )); then
++    status="FAIL"; reason="$f verification check(s) failed"
++  elif (( w > 0 )); then
++    status="WARN"
++  else
++    status="PASS"
++  fi
++  printf '%s|%s|%s|%s|%s|%s\n' "$status" "$p" "$f" "$w" "$dur" "$reason"
++}
++
++dispatch_fleet() {
++  if ! command -v tailscale &>/dev/null; then
++    print_error "tailscale not found in PATH; fleet dispatch unavailable"
++    return 1
++  fi
++
++  local self_name self_ip
++  self_name="$(hostname -s)"
++  self_ip="$(tailscale ip -4 2>/dev/null | head -n 1 || true)"
++
++  local -a ips=() names=() states=() oses=()
++  local ip name state os
++  while IFS='|' read -r ip name state os; do
++    if [[ -n "$NODES_FILTER" && "$state" == "ONLINE" && ",$NODES_FILTER," != *",$name,"* ]]; then
++      state="EXCLUDED"
++    fi
++    ips+=("$ip"); names+=("$name"); states+=("$state"); oses+=("$os")
++  done < <(fleet_discover)
++
++  if (( ${#names[@]} == 0 )); then
++    print_error "No tailnet peers found (is tailscaled running?)"
++    return 1
++  fi
++
++  local canary_label="local"
++  [[ "$CANARY_TARGET" == "local" || "$CANARY_TARGET" == "$self_name" ]] || canary_label="$CANARY_TARGET"
++
++  local i
++  # ---------------------------------------------------------------- dry-run
++  if (( DRY_RUN )); then
++    print_header "FLEET PREVIEW (DRY-RUN) - no commands executed, no logs written"
++    printf '  %-16s %-16s %-14s %-8s %s\n' "Node" "Tailscale IP" "State" "RTT" "Planned Action"
++    printf '  %s\n' "----------------------------------------------------------------------------------------"
++    local rtt action
++    for i in "${!names[@]}"; do
++      rtt="-"
++      if [[ "${states[$i]}" == "ONLINE" ]]; then
++        rtt="$(fleet_rtt "${names[$i]}")"; rtt="${rtt:--}"
++      fi
++      case "${states[$i]}" in
++        SELF)
++          if [[ "$canary_label" == "local" ]]; then
++            action="CANARY (local): install.sh --sync, gate: 0 Failed"
++          else
++            action="dispatcher host (not synced)"
++          fi ;;
++        ONLINE)
++          if [[ "${names[$i]}" == "$canary_label" ]]; then
++            action="CANARY (remote): ssh -> fleet-sync, gate: 0 Failed"
++          else
++            action="after canary: ssh -> fleet-sync ($( (( PARALLEL )) && echo parallel || echo sequential))"
++          fi ;;
++        OFFLINE)       action="[SKIPPED: offline]" ;;
++        SKIP-NONLINUX) action="[SKIPPED: non-Linux (${oses[$i]})]" ;;
++        EXCLUDED)      action="[SKIPPED: not in --nodes]" ;;
++        *)             action="-" ;;
++      esac
++      printf '  %-16s %-16s %-14s %-8s %s\n' "${names[$i]}" "${ips[$i]}" "${states[$i]}" "$rtt" "$action"
++    done
++    return 0
++  fi
++
++  # ---------------------------------------------------------------- live run
++  local logdir
++  logdir="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/fleet-logs/$(date +%Y%m%d_%H%M%S)"
++  mkdir -p "$logdir"
++  print_header "Fleet Rollout (canary: $canary_label, dispatch: $( (( PARALLEL )) && echo parallel || echo sequential))"
++  print_step "Per-node logs: $logdir"
++
++  local -a order=() order_ips=() summary_rows=()
++  local res status p f w dur reason canary_name
++
++  # Stage 1: canary gate
++  if [[ "$canary_label" == "local" ]]; then
++    canary_name="$self_name"
++    print_step "Canary: running local fleet sync on $canary_name ..."
++    fleet_run_local "$canary_name" "$logdir"
++  else
++    canary_name="$canary_label"
++    local canary_ip=""
++    for i in "${!names[@]}"; do
++      if [[ "${names[$i]}" == "$canary_name" && "${states[$i]}" == "ONLINE" ]]; then canary_ip="${ips[$i]}"; fi
++    done
++    if [[ -z "$canary_ip" ]]; then
++      print_error "Canary node '$canary_name' is not an online Linux tailnet peer; aborting (no remote mutation)"
++      return 2
++    fi
++    print_step "Canary: running fleet-sync on $canary_name ($canary_ip) ..."
++    fleet_run_node "$canary_ip" "$canary_name" "$logdir"
++  fi
++  res="$(fleet_classify "$canary_name" "$logdir")"
++  IFS='|' read -r status p f w dur reason <<< "$res"
++  summary_rows+=("$canary_name|CANARY-$status|$p|$f|$w|$dur|$reason")
++  if [[ "$status" == "FAIL" ]]; then
++    print_error "[CANARY FAILED] $canary_name: $reason - aborting fleet rollout (zero remote mutation)"
++    print_step "Canary log: $logdir/$canary_name.log"
++    fleet_summary "$logdir" "${summary_rows[@]}"
++    return 2
++  fi
++  print_success "Canary passed on $canary_name (Passed=$p Failed=$f Warnings=$w)"
++
++  # Stage 2: targets (online Linux peers, excluding the canary and this host)
++  for i in "${!names[@]}"; do
++    [[ "${states[$i]}" == "ONLINE" && "${names[$i]}" != "$canary_name" ]] || continue
++    order+=("${names[$i]}"); order_ips+=("${ips[$i]}")
++  done
++
++  # Stage 3: isolated dispatch (a failing node never stops the others)
++  if (( PARALLEL )); then
++    for i in "${!order[@]}"; do
++      print_step "Dispatching to ${order[$i]} (${order_ips[$i]}) [parallel]"
++      fleet_run_node "${order_ips[$i]}" "${order[$i]}" "$logdir" &
++    done
++    wait
++  else
++    for i in "${!order[@]}"; do
++      print_step "Dispatching to ${order[$i]} (${order_ips[$i]}) ..."
++      fleet_run_node "${order_ips[$i]}" "${order[$i]}" "$logdir"
++    done
++  fi
++
++  local any_fail=0
++  for i in "${!order[@]}"; do
++    res="$(fleet_classify "${order[$i]}" "$logdir")"
++    IFS='|' read -r status p f w dur reason <<< "$res"
++    [[ "$status" == "FAIL" ]] && any_fail=1
++    summary_rows+=("${order[$i]}|$status|$p|$f|$w|$dur|$reason")
++  done
++  for i in "${!names[@]}"; do
++    case "${states[$i]}" in
++      OFFLINE|SKIP-NONLINUX|EXCLUDED)
++        summary_rows+=("${names[$i]}|SKIPPED|-|-|-|-|${states[$i]}") ;;
++    esac
++  done
++
++  fleet_summary "$logdir" "${summary_rows[@]}"
++  (( any_fail == 0 ))
++}
++
++# Print the rollout table plus every warning line verbatim (counts alone are never reported)
++fleet_summary() {
++  local logdir="$1"; shift
++  local row name status p f w dur reason npass=0 nwarn=0 nfail=0 nskip=0
++  printf '\n%s\n  FLEET ROLLOUT SUMMARY [%s]\n%s\n' "================================================================================" "$(date '+%F %T')" "================================================================================"
++  printf '  %-16s %-14s %-6s %-6s %-6s %-6s %s\n' "Node" "Status" "Pass" "Fail" "Warn" "Secs" "Log / Reason"
++  for row in "$@"; do
++    IFS='|' read -r name status p f w dur reason <<< "$row"
++    case "$status" in
++      *PASS) npass=$((npass + 1)) ;;
++      *WARN) nwarn=$((nwarn + 1)) ;;
++      *FAIL) nfail=$((nfail + 1)) ;;
++      SKIPPED) nskip=$((nskip + 1)) ;;
++    esac
++    if [[ "$status" == SKIPPED ]]; then
++      printf '  %-16s %-14s %-6s %-6s %-6s %-6s %s\n' "$name" "$status" "$p" "$f" "$w" "$dur" "$reason"
++    elif [[ "$status" == *FAIL ]]; then
++      printf '  %-16s %-14s %-6s %-6s %-6s %-6s %s\n' "$name" "$status" "$p" "$f" "$w" "$dur" "$reason ($logdir/$name.log)"
++    else
++      printf '  %-16s %-14s %-6s %-6s %-6s %-6s %s\n' "$name" "$status" "$p" "$f" "$w" "$dur" "$logdir/$name.log"
++    fi
++  done
++  printf '%s\n' "--------------------------------------------------------------------------------"
++  local any_warn=0
++  for row in "$@"; do
++    IFS='|' read -r name status p f w dur reason <<< "$row"
++    [[ -f "$logdir/$name.log" ]] || continue
++    local wl; wl="$(log_warnings "$logdir/$name.log")"
++    if [[ -n "$wl" ]]; then
++      (( any_warn )) || printf '  WARNINGS (verbatim from node logs):\n'
++      any_warn=1
++      while IFS= read -r line; do printf '    [%s] %s\n' "$name" "$line"; done <<< "$wl"
++    fi
++  done
++  printf '  Result: %d passed, %d with warnings, %d failed, %d skipped.\n' "$npass" "$nwarn" "$nfail" "$nskip"
++  printf '%s\n\n' "================================================================================"
++}
++
++# ------------------------------------------------------------------------------
+ # Main Dispatcher
+ # ------------------------------------------------------------------------------
+ MODE="all"
+ ARG=""
++DRY_RUN=0
++PARALLEL=0
++CANARY_TARGET="local"
++NODES_FILTER=""
+ 
+ while (( $# > 0 )); do
+   case "$1" in
+     --stow) MODE="stow"; shift ;;
+     --verify) MODE="verify"; shift ;;
+-    --sync) MODE="sync"; shift ;;
++    --sync) [[ "$MODE" == "fleet" ]] || MODE="sync"; shift ;;
+     --unstow) MODE="unstow"; shift ;;
+     --snapshot)
+       MODE="snapshot"
+@@ -1096,11 +1362,35 @@
+       PROFILE="${1#*=}"
+       shift
+       ;;
++    --fleet) MODE="fleet"; shift ;;
++    --dry-run|-n) DRY_RUN=1; shift ;;
++    --parallel) PARALLEL=1; shift ;;
++    --canary)
++      shift
++      CANARY_TARGET="${1:-}"
++      [[ -n "$CANARY_TARGET" ]] || { print_error "--canary requires a node name (or 'local')"; exit 1; }
++      shift
++      ;;
++    --canary=*) CANARY_TARGET="${1#*=}"; shift ;;
++    --nodes)
++      shift
++      NODES_FILTER="${1:-}"
++      [[ -n "$NODES_FILTER" ]] || { print_error "--nodes requires a comma-separated list"; exit 1; }
++      shift
++      ;;
++    --nodes=*) NODES_FILTER="${1#*=}"; shift ;;
+     --help|-h) show_help; exit 0 ;;
+     *) print_error "Unknown option: $1"; show_help; exit 1 ;;
+   esac
+ done
+ 
++# Fleet dispatch is handled before profile resolution / self-update (it only orchestrates children)
++if [[ "$MODE" == "fleet" ]]; then
++  fleet_rc=0
++  dispatch_fleet || fleet_rc=$?
++  exit "$fleet_rc"
++fi
++
+ # ------------------------------------------------------------------------------
+ # Early Orchestrator Synchronization & Self-Update (Chicken-and-Egg Immunity)
+ # ------------------------------------------------------------------------------

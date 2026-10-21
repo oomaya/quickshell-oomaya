@@ -1,0 +1,12 @@
+
+==> FLEET PREVIEW (DRY-RUN) - no commands executed, no logs written
+  Node             Tailscale IP     State          RTT      Planned Action
+  ----------------------------------------------------------------------------------------
+  mint-vm          100.118.69.27    SELF           -        CANARY (local): install.sh --sync, gate: 0 Failed
+  fedora44-vm      100.101.243.54   ONLINE         1ms      after canary: ssh -> fleet-sync (sequential)
+  muse-1           100.69.212.28    SKIP-NONLINUX  -        [SKIPPED: non-Linux (unknown)]
+  muse             100.106.200.118  OFFLINE        -        [SKIPPED: offline]
+  omarchy-gram     100.82.99.66     ONLINE         3ms      after canary: ssh -> fleet-sync (sequential)
+  omarchy-vm       100.124.231.48   ONLINE         1ms      after canary: ssh -> fleet-sync (sequential)
+  peppermint-vm    100.126.37.73    ONLINE         1ms      after canary: ssh -> fleet-sync (sequential)
+  win11-pc         100.126.57.34    SKIP-NONLINUX  -        [SKIPPED: non-Linux (windows)]

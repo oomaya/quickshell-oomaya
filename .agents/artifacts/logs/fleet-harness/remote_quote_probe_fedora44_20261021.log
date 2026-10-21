@@ -1,0 +1,3 @@
+0 0
+/home/rand/.local/bin/fleet-sync
+DISPLAY=:0 XDG=/run/user/1000

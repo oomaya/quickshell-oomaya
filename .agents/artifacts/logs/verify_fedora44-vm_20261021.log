@@ -1,0 +1,700 @@
+From github.com:oomaya/dotfiles
+ * branch            master     -> FETCH_HEAD
+   b8b4456..1002217  master     -> origin/master
+Updating b8b4456..1002217
+Created autostash: 5d30406
+Fast-forward
+ install.sh | 75 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
+Applied autostash.
+  [0;36m•[0m Loaded persistent profile from ~/.config/dotfiles/profile: workstation
+  [0;36m•[0m Active Fleet Profile: [1m[0;34mworkstation[0m (Packages: antigravity nvim fish git ghostty kitty niri)
+
+[1m[0;34m==> Fleet Synchronization: Coordinating Repositories[0m
+  [0;36m•[0m 1/3 Synchronizing dotfiles repository...
+  [0;36m•[0m Detected uncommitted local changes in dotfiles — pulling with automatic autostash...
+From github.com:oomaya/dotfiles
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+  [0;32m✓[0m Dotfiles repository synchronized
+  [0;36m•[0m 2/3 Synchronizing knowledge vault...
+CONFLICT (modify/delete): antigravity-artifacts/current/techlead-review-phase1-fleet-sync.md deleted in aaa201d (sync(artifacts)[fedora44]: auto-sync brain artifacts [2026-10-21 13:46:34]) and modified in HEAD.  Version HEAD of antigravity-artifacts/current/techlead-review-phase1-fleet-sync.md left in tree.
+CONFLICT (modify/delete): antigravity-artifacts/current/techlead-review-phase1-fleet-sync.md deleted in aaa201d (sync(artifacts)[fedora44]: auto-sync brain artifacts [2026-10-21 13:46:34]) and modified in HEAD.  Version HEAD of antigravity-artifacts/current/techlead-review-phase1-fleet-sync.md left in tree.
+HEAD is now at c7dfa7b sync(artifacts)[mint-vm]: auto-sync brain artifacts [2026-10-21 13:43:44]
+  [0;36m•[0m Knowledge vault cleanly aligned with origin/main
+  [0;32m✓[0m Knowledge vault synchronized
+  [0;36m•[0m 3/3 Synchronizing agent skills & rules...
+Already up to date.
+  [0;32m✓[0m Agent skills & rules synchronized
+
+[1m[0;34m==> Stage 1: Pre-Flight & Dependency Checks (Detected Distro: fedora)[0m
+  [0;32m✓[0m GNU Stow is already installed (stow (GNU Stow) version 2.4.1)
+  [0;32m✓[0m ShellCheck is available
+  [0;32m✓[0m inotify-tools (inotifywait) is available
+  [0;32m✓[0m Antigravity CLI (agy) found
+  [0;32m✓[0m rclone is installed (rclone v1.74.3)
+  [0;32m✓[0m Ghostty terminal is installed (Ghostty 1.3.1-4.fc44)
+
+[1m[0;34m==> Stage 2: Deploying Dotfile Packages via GNU Stow[0m
+  [0;36m•[0m Quarantined pre-existing file/link: .gemini/antigravity-cli/settings.json -> settings.json
+  [0;36m•[0m Quarantined pre-existing file/link: .local/bin/validate-desktop-command -> validate-desktop-command
+  [0;36m•[0m Stowing package: [1mantigravity[0m
+  [0;32m✓[0m Package 'antigravity' linked
+  [0;36m•[0m Stowing package: [1mnvim[0m
+  [0;32m✓[0m Package 'nvim' linked
+  [0;36m•[0m Stowing package: [1mfish[0m
+  [0;32m✓[0m Package 'fish' linked
+  [0;36m•[0m Stowing package: [1mgit[0m
+  [0;32m✓[0m Package 'git' linked
+  [0;36m•[0m Stowing package: [1mghostty[0m
+  [0;32m✓[0m Package 'ghostty' linked
+  [0;36m•[0m Quarantined pre-existing file/link: .config/kitty/kitty.conf -> kitty.conf
+  [0;36m•[0m Stowing package: [1mkitty[0m
+  [0;32m✓[0m Package 'kitty' linked
+  [0;36m•[0m Stowing package: [1mniri[0m
+  [0;32m✓[0m Package 'niri' linked
+
+[1m[0;34m==> Stage 3: Synchronizing Runtime Environment, Brain & Daemons[0m
+  [0;36m•[0m Synchronizing oomaya/Deliverable at /home/rand/Deliverable...
+Already up to date.
+  [0;32m✓[0m Knowledge vault synchronized
+  [0;32m✓[0m Linked ~/Documents/artifacts -> /home/rand/Deliverable/antigravity-artifacts
+  [0;36m•[0m Synchronizing oomaya/antigravity-skills...
+  [0;32m✓[0m Global rules and skills wired from oomaya/antigravity-skills
+  [0;36m•[0m Importing PATH and reloading systemd user environment...
+  [0;32m✓[0m Systemd user environment updated
+  [0;32m✓[0m Antigravity artifact auto-sync daemon active
+  [0;36m•[0m Refreshing Omarchy terminal & menu state...
+  [0;32m✓[0m Terminal & menu environment refreshed
+  [0;36m•[0m Pre-syncing Neovim plugins (Lazy.nvim)...
+[35m[LazyVim] [0m[36m        fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[aether] [0m[36m         fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[ashen.nvim] [0m[36m     fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[bamboo.nvim] [0m[36m    fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[bufferline.nvim] [0m[36mfetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[catppuccin] [0m[36m     fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[conform.nvim] [0m[36m   fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[ethereal.nvim] [0m[36m  fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[everforest-nvim] [0m[36mfetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[flash.nvim] [0m[36m     fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[flexoki-neovim] [0m[36m fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[friendly-snippets] [0m[36mfetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[gitsigns.nvim] [0m[36m  fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[grug-far.nvim] [0m[36m  fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[gruvbox.nvim] [0m[36m   fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[hackerman.nvim] [0m[36m fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[harpoon] [0m[36m        fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[kanagawa.nvim] [0m[36m  fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[lazy.nvim] [0m[36m      fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[lazydev.nvim] [0m[36m   fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[lualine.nvim] [0m[36m   fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[lumon.nvim] [0m[36m     fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[mason-lspconfig.nvim] [0m[36mfetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[mason.nvim] [0m[36m     fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[matteblack.nvim] [0m[36mfetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[miasma.nvim] [0m[36m    fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[mini.ai] [0m[36m        fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[mini.icons] [0m[36m     fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[mini.pairs] [0m[36m     fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[nightfox.nvim] [0m[36m  fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[noice.nvim] [0m[36m     fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[nui.nvim] [0m[36m       fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[nvim-lint] [0m[36m      fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[nvim-treesitter] [0m[36mfetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[nvim-treesitter-textobjects] [0m[36mfetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[nvim-ts-autotag] [0m[36mfetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[persistence.nvim] [0m[36mfetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[plenary.nvim] [0m[36m   fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[presenting.nvim] [0m[36mfetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[retro-82.nvim] [0m[36m  fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[rose-pine] [0m[36m      fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[snacks.nvim] [0m[36m    fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[sonokai] [0m[36m        fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[todo-comments.nvim] [0m[36mfetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[tokyonight.nvim] [0m[36mfetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[trouble.nvim] [0m[36m   fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[ts-comments.nvim] [0m[36mfetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[vantablack.nvim] [0m[36mfetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[which-key.nvim] [0m[36m fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[white.nvim] [0m[36m     fetch[0m[90m | [0m[34mRunning task fetch[0m
+[35m[nvim-ts-autotag] [0m[36mfetch[0m[90m | [0m[34mFinished task fetch in 2242ms[0m
+[35m[nvim-ts-autotag] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[nvim-ts-autotag] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 22ms[0m
+[35m[nvim-ts-autotag] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[nvim-ts-autotag] [0m[36mcheckout[0m[90m | [0mPrevious HEAD position was d7220b5 feat: Add ocaml mlx (#265)
+[35m[nvim-ts-autotag] [0m[36mcheckout[0m[90m | [0mHEAD is now at 88c1453 fix: handle nil parser in rename_tag for Neovim 0.12+ (#260)
+[35m[nvim-ts-autotag] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 23ms[0m
+[35m[nvim-ts-autotag] [0m[36m docs[0m[90m | [0m[34mRunning task docs[0m
+[35m[nvim-ts-autotag] [0m[36m docs[0m[90m | [0m[34mFinished task docs in 0ms[0m
+[35m[vantablack.nvim] [0m[36mfetch[0m[90m | [0m[34mFinished task fetch in 2598ms[0m
+[35m[vantablack.nvim] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[vantablack.nvim] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 22ms[0m
+[35m[vantablack.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[vantablack.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[white.nvim] [0m[36m     fetch[0m[90m | [0m[34mFinished task fetch in 2651ms[0m
+[35m[white.nvim] [0m[36m    status[0m[90m | [0m[34mRunning task status[0m
+[35m[white.nvim] [0m[36m    status[0m[90m | [0m[34mFinished task status in 22ms[0m
+[35m[white.nvim] [0m[36m  checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[white.nvim] [0m[36m  checkout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[lumon.nvim] [0m[36m     fetch[0m[90m | [0m[34mFinished task fetch in 2702ms[0m
+[35m[lumon.nvim] [0m[36m    status[0m[90m | [0m[34mRunning task status[0m
+[35m[mini.ai] [0m[36m        fetch[0m[90m | [0m[34mFinished task fetch in 2703ms[0m
+[35m[mini.ai] [0m[36m       status[0m[90m | [0m[34mRunning task status[0m
+[35m[hackerman.nvim] [0m[36m fetch[0m[90m | [0m[34mFinished task fetch in 2726ms[0m
+[35m[hackerman.nvim] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[lumon.nvim] [0m[36m    status[0m[90m | [0m[34mFinished task status in 21ms[0m
+[35m[mini.icons] [0m[36m     fetch[0m[90m | [0mremote: Enumerating objects: 4, done.        
+[35m[mini.icons] [0m[36m     fetch[0m[90m | [0mremote: Counting objects:  25% (1/4)        [35m[mini.icons] [0m[36m     fetch[0m[90m | [0mremote: Counting objects:  50% (2/4)        [35m[mini.icons] [0m[36m     fetch[0m[90m | [0mremote: Counting objects:  75% (3/4)        [35m[mini.icons] [0m[36m     fetch[0m[90m | [0mremote: Counting objects: 100% (4/4)        [35m[mini.icons] [0m[36m     fetch[0m[90m | [0mremote: Counting objects: 100% (4/4), done.        
+[35m[mini.icons] [0m[36m     fetch[0m[90m | [0mremote: Total 4 (delta 1), reused 4 (delta 1), pack-reused 0 (from 0)        
+[35m[lumon.nvim] [0m[36m  checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[lumon.nvim] [0m[36m  checkout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[mini.ai] [0m[36m       status[0m[90m | [0m[34mFinished task status in 21ms[0m
+[35m[mini.icons] [0m[36m     fetch[0m[90m | [0mReceiving objects:  25% (1/4)[35m[mini.icons] [0m[36m     fetch[0m[90m | [0mReceiving objects:  50% (2/4)[35m[mini.icons] [0m[36m     fetch[0m[90m | [0mReceiving objects:  75% (3/4)[35m[mini.icons] [0m[36m     fetch[0m[90m | [0mReceiving objects: 100% (4/4)[35m[mini.icons] [0m[36m     fetch[0m[90m | [0mReceiving objects: 100% (4/4), 1.19 KiB | 1.19 MiB/s, done.
+[35m[mini.icons] [0m[36m     fetch[0m[90m | [0mResolving deltas:   0% (0/1)[35m[mini.ai] [0m[36m     checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[mini.icons] [0m[36m     fetch[0m[90m | [0mResolving deltas: 100% (1/1)[35m[mini.icons] [0m[36m     fetch[0m[90m | [0mResolving deltas: 100% (1/1), completed with 1 local object.
+[35m[hackerman.nvim] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 16ms[0m
+[35m[conform.nvim] [0m[36m   fetch[0m[90m | [0m[34mFinished task fetch in 2749ms[0m
+[35m[conform.nvim] [0m[36m  status[0m[90m | [0m[34mRunning task status[0m
+[35m[hackerman.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[hackerman.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 7ms[0m
+[35m[nvim-lint] [0m[36m      fetch[0m[90m | [0m[34mFinished task fetch in 2746ms[0m
+[35m[nvim-lint] [0m[36m     status[0m[90m | [0m[34mRunning task status[0m
+[35m[ethereal.nvim] [0m[36m  fetch[0m[90m | [0m[34mFinished task fetch in 2769ms[0m
+[35m[ethereal.nvim] [0m[36m status[0m[90m | [0m[34mRunning task status[0m
+[35m[mini.ai] [0m[36m     checkout[0m[90m | [0mPrevious HEAD position was c2c4278 fix(ai): prepare to drop `use_nvim_treesitter` option
+[35m[mini.ai] [0m[36m     checkout[0m[90m | [0mHEAD is now at cb02c54 fix(ai): update `tag` textobject to allow whitespace before `>`
+[35m[mini.ai] [0m[36m     checkout[0m[90m | [0m[34mFinished task checkout in 57ms[0m
+[35m[mini.ai] [0m[36m         docs[0m[90m | [0m[34mRunning task docs[0m
+[35m[mini.ai] [0m[36m         docs[0m[90m | [0m
+[35m[mini.ai] [0m[36m         docs[0m[90m | [0m[34mFinished task docs in 1ms[0m
+[35m[ethereal.nvim] [0m[36m status[0m[90m | [0m[34mFinished task status in 33ms[0m
+[35m[ethereal.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[ethereal.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[nvim-lint] [0m[36m     status[0m[90m | [0m[34mFinished task status in 65ms[0m
+[35m[nvim-lint] [0m[36m   checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[nvim-lint] [0m[36m   checkout[0m[90m | [0mPrevious HEAD position was f6230a5 Add j2lint
+[35m[nvim-lint] [0m[36m   checkout[0m[90m | [0mHEAD is now at 3d55c8f fortitude: Handle renamed row/line property (#13)
+[35m[nvim-lint] [0m[36m   checkout[0m[90m | [0m[34mFinished task checkout in 54ms[0m
+[35m[nvim-lint] [0m[36m       docs[0m[90m | [0m[34mRunning task docs[0m
+[35m[nvim-lint] [0m[36m       docs[0m[90m | [0m
+[35m[nvim-lint] [0m[36m       docs[0m[90m | [0m[34mFinished task docs in 2ms[0m
+[35m[conform.nvim] [0m[36m  status[0m[90m | [0m[34mFinished task status in 150ms[0m
+[35m[conform.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[conform.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[mini.icons] [0m[36m     fetch[0m[90m | [0mFrom github.com:nvim-mini/mini.icons
+[35m[mini.icons] [0m[36m     fetch[0m[90m | [0m   f916635..9e4c164  main       -> origin/main
+[35m[mini.icons] [0m[36m     fetch[0m[90m | [0m[34mFinished task fetch in 2909ms[0m
+[35m[mini.icons] [0m[36m    status[0m[90m | [0m[34mRunning task status[0m
+[35m[mini.icons] [0m[36m    status[0m[90m | [0m[34mFinished task status in 21ms[0m
+[35m[mini.icons] [0m[36m  checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[presenting.nvim] [0m[36mfetch[0m[90m | [0m[34mFinished task fetch in 3002ms[0m
+[35m[mini.icons] [0m[36m  checkout[0m[90m | [0mPrevious HEAD position was f642e3b fix(icons): update `mock_nvim_web_devicons` to respect global `default`
+[35m[mini.icons] [0m[36m  checkout[0m[90m | [0mHEAD is now at 98faae3 feat(ALL)!: stop support of Neovim 0.9
+[35m[presenting.nvim] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[mini.icons] [0m[36m  checkout[0m[90m | [0m[34mFinished task checkout in 65ms[0m
+[35m[mini.icons] [0m[36m      docs[0m[90m | [0m[34mRunning task docs[0m
+[35m[mini.icons] [0m[36m      docs[0m[90m | [0m
+[35m[mini.icons] [0m[36m      docs[0m[90m | [0m[34mFinished task docs in 7ms[0m
+[35m[presenting.nvim] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 33ms[0m
+[35m[presenting.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[presenting.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[matteblack.nvim] [0m[36mfetch[0m[90m | [0m[34mFinished task fetch in 3047ms[0m
+[35m[persistence.nvim] [0m[36mfetch[0m[90m | [0m[34mFinished task fetch in 3043ms[0m
+[35m[matteblack.nvim] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[persistence.nvim] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[bamboo.nvim] [0m[36m    fetch[0m[90m | [0m[34mFinished task fetch in 3062ms[0m
+[35m[bamboo.nvim] [0m[36m   status[0m[90m | [0m[34mRunning task status[0m
+[35m[harpoon] [0m[36m        fetch[0m[90m | [0m[34mFinished task fetch in 3065ms[0m
+[35m[harpoon] [0m[36m       status[0m[90m | [0m[34mRunning task status[0m
+[35m[mason-lspconfig.nvim] [0m[36mfetch[0m[90m | [0m[34mFinished task fetch in 3068ms[0m
+[35m[miasma.nvim] [0m[36m    fetch[0m[90m | [0m[34mFinished task fetch in 3069ms[0m
+[35m[mason-lspconfig.nvim] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[miasma.nvim] [0m[36m   status[0m[90m | [0m[34mRunning task status[0m
+[35m[which-key.nvim] [0m[36m fetch[0m[90m | [0m[34mFinished task fetch in 3064ms[0m
+[35m[which-key.nvim] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[flash.nvim] [0m[36m     fetch[0m[90m | [0m[34mFinished task fetch in 3092ms[0m
+[35m[mini.pairs] [0m[36m     fetch[0m[90m | [0m[34mFinished task fetch in 3083ms[0m
+[35m[flash.nvim] [0m[36m    status[0m[90m | [0m[34mRunning task status[0m
+[35m[mini.pairs] [0m[36m    status[0m[90m | [0m[34mRunning task status[0m
+[35m[nui.nvim] [0m[36m       fetch[0m[90m | [0m[34mFinished task fetch in 3090ms[0m
+[35m[mason-lspconfig.nvim] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 23ms[0m
+[35m[mason-lspconfig.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[nui.nvim] [0m[36m      status[0m[90m | [0m[34mRunning task status[0m
+[35m[flexoki-neovim] [0m[36m fetch[0m[90m | [0m[34mFinished task fetch in 3114ms[0m
+[35m[sonokai] [0m[36m        fetch[0m[90m | [0m[34mFinished task fetch in 3101ms[0m
+[35m[flexoki-neovim] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[sonokai] [0m[36m       status[0m[90m | [0m[34mRunning task status[0m
+[35m[retro-82.nvim] [0m[36m  fetch[0m[90m | [0m[34mFinished task fetch in 3115ms[0m
+[35m[retro-82.nvim] [0m[36m status[0m[90m | [0m[34mRunning task status[0m
+[35m[ashen.nvim] [0m[36m     fetch[0m[90m | [0m[34mFinished task fetch in 3136ms[0m
+[35m[ashen.nvim] [0m[36m    status[0m[90m | [0m[34mRunning task status[0m
+[35m[nightfox.nvim] [0m[36m  fetch[0m[90m | [0m[34mFinished task fetch in 3126ms[0m
+[35m[todo-comments.nvim] [0m[36mfetch[0m[90m | [0m[34mFinished task fetch in 3121ms[0m
+[35m[trouble.nvim] [0m[36m   fetch[0m[90m | [0m[34mFinished task fetch in 3121ms[0m
+[35m[nightfox.nvim] [0m[36m status[0m[90m | [0m[34mRunning task status[0m
+[35m[todo-comments.nvim] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[trouble.nvim] [0m[36m  status[0m[90m | [0m[34mRunning task status[0m
+[35m[aether] [0m[36m         fetch[0m[90m | [0m[34mFinished task fetch in 3158ms[0m
+[35m[aether] [0m[36m        status[0m[90m | [0m[34mRunning task status[0m
+[35m[gruvbox.nvim] [0m[36m   fetch[0m[90m | [0m[34mFinished task fetch in 3155ms[0m
+[35m[gruvbox.nvim] [0m[36m  status[0m[90m | [0m[34mRunning task status[0m
+[35m[lualine.nvim] [0m[36m   fetch[0m[90m | [0m[34mFinished task fetch in 3163ms[0m
+[35m[lualine.nvim] [0m[36m  status[0m[90m | [0m[34mRunning task status[0m
+[35m[rose-pine] [0m[36m      fetch[0m[90m | [0m[34mFinished task fetch in 3159ms[0m
+[35m[rose-pine] [0m[36m     status[0m[90m | [0m[34mRunning task status[0m
+[35m[ts-comments.nvim] [0m[36mfetch[0m[90m | [0m[34mFinished task fetch in 3165ms[0m
+[35m[ts-comments.nvim] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[nvim-treesitter] [0m[36mfetch[0m[90m | [0m[34mFinished task fetch in 3181ms[0m
+[35m[nvim-treesitter] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[everforest-nvim] [0m[36mfetch[0m[90m | [0m[34mFinished task fetch in 3204ms[0m
+[35m[everforest-nvim] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[noice.nvim] [0m[36m     fetch[0m[90m | [0m[34mFinished task fetch in 3204ms[0m
+[35m[noice.nvim] [0m[36m    status[0m[90m | [0m[34mRunning task status[0m
+[35m[kanagawa.nvim] [0m[36m  fetch[0m[90m | [0m[34mFinished task fetch in 3217ms[0m
+[35m[lazydev.nvim] [0m[36m   fetch[0m[90m | [0m[34mFinished task fetch in 3214ms[0m
+[35m[nvim-treesitter-textobjects] [0m[36mfetch[0m[90m | [0m[34mFinished task fetch in 3208ms[0m
+[35m[kanagawa.nvim] [0m[36m status[0m[90m | [0m[34mRunning task status[0m
+[35m[lazydev.nvim] [0m[36m  status[0m[90m | [0m[34mRunning task status[0m
+[35m[nvim-treesitter-textobjects] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[lazy.nvim] [0m[36m      fetch[0m[90m | [0m[34mFinished task fetch in 3221ms[0m
+[35m[lazy.nvim] [0m[36m     status[0m[90m | [0m[34mRunning task status[0m
+[35m[gitsigns.nvim] [0m[36m  fetch[0m[90m | [0m[34mFinished task fetch in 3233ms[0m
+[35m[gitsigns.nvim] [0m[36m status[0m[90m | [0m[34mRunning task status[0m
+[35m[lazy.nvim] [0m[36m     status[0m[90m | [0m[34mFinished task status in 14ms[0m
+[35m[lazy.nvim] [0m[36m   checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[bufferline.nvim] [0m[36mfetch[0m[90m | [0m[34mFinished task fetch in 3258ms[0m
+[35m[bufferline.nvim] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[lazy.nvim] [0m[36m   checkout[0m[90m | [0mHEAD is now at 85c7ff3 chore(main): release 11.17.5 (#2087)
+[35m[lazy.nvim] [0m[36m   checkout[0m[90m | [0m[34mFinished task checkout in 40ms[0m
+[35m[plenary.nvim] [0m[36m   fetch[0m[90m | [0m[34mFinished task fetch in 3285ms[0m
+[35m[plenary.nvim] [0m[36m  status[0m[90m | [0m[34mRunning task status[0m
+[35m[snacks.nvim] [0m[36m    fetch[0m[90m | [0m[34mFinished task fetch in 3297ms[0m
+[35m[snacks.nvim] [0m[36m   status[0m[90m | [0m[34mRunning task status[0m
+[35m[mason.nvim] [0m[36m     fetch[0m[90m | [0m[34mFinished task fetch in 3306ms[0m
+[35m[mason.nvim] [0m[36m    status[0m[90m | [0m[34mRunning task status[0m
+[35m[grug-far.nvim] [0m[36m  fetch[0m[90m | [0m[34mFinished task fetch in 3319ms[0m
+[35m[grug-far.nvim] [0m[36m status[0m[90m | [0m[34mRunning task status[0m
+[35m[ts-comments.nvim] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 155ms[0m
+[35m[ts-comments.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[ts-comments.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 1ms[0m
+[35m[nvim-treesitter] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 154ms[0m
+[35m[nvim-treesitter] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[persistence.nvim] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 296ms[0m
+[35m[persistence.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[persistence.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[mini.pairs] [0m[36m    status[0m[90m | [0m[34mFinished task status in 268ms[0m
+[35m[mini.pairs] [0m[36m  checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[mini.pairs] [0m[36m  checkout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[rose-pine] [0m[36m     status[0m[90m | [0m[34mFinished task status in 191ms[0m
+[35m[rose-pine] [0m[36m   checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[rose-pine] [0m[36m   checkout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[everforest-nvim] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 203ms[0m
+[35m[everforest-nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[everforest-nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[matteblack.nvim] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 361ms[0m
+[35m[matteblack.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[matteblack.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[gruvbox.nvim] [0m[36m  status[0m[90m | [0m[34mFinished task status in 270ms[0m
+[35m[gruvbox.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[gruvbox.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[mason-lspconfig.nvim] [0m[36mcheckout[0m[90m | [0mPrevious HEAD position was e17625c chore: update generated code (#704)
+[35m[mason-lspconfig.nvim] [0m[36mcheckout[0m[90m | [0mHEAD is now at 0c5d026 chore: update generated code (#698)
+[35m[flexoki-neovim] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 334ms[0m
+[35m[flexoki-neovim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[flexoki-neovim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[mason-lspconfig.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 351ms[0m
+[35m[mason-lspconfig.nvim] [0m[36mdocs[0m[90m | [0m[34mRunning task docs[0m
+[35m[mason-lspconfig.nvim] [0m[36mdocs[0m[90m | [0m
+[35m[mason-lspconfig.nvim] [0m[36mdocs[0m[90m | [0m[34mFinished task docs in 20ms[0m
+[35m[sonokai] [0m[36m       status[0m[90m | [0m[34mFinished task status in 379ms[0m
+[35m[todo-comments.nvim] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 357ms[0m
+[35m[lazydev.nvim] [0m[36m  status[0m[90m | [0m[34mFinished task status in 269ms[0m
+[35m[lazydev.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[lazydev.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[sonokai] [0m[36m     checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[sonokai] [0m[36m     checkout[0m[90m | [0m[34mFinished task checkout in 1ms[0m
+[35m[todo-comments.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[todo-comments.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 1ms[0m
+[35m[ashen.nvim] [0m[36m    status[0m[90m | [0m[34mFinished task status in 374ms[0m
+[35m[miasma.nvim] [0m[36m   status[0m[90m | [0m[34mFinished task status in 428ms[0m
+[35m[nvim-treesitter] [0m[36mcheckout[0m[90m | [0mPrevious HEAD position was 1a4f47b0 bot(parsers): update erlang, fennel, idl, javadoc, mlir, nix, perl, php, php_only, proto, swift, templ
+[35m[ashen.nvim] [0m[36m  checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[ashen.nvim] [0m[36m  checkout[0m[90m | [0m[34mFinished task checkout in 4ms[0m
+[35m[miasma.nvim] [0m[36m checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[miasma.nvim] [0m[36m checkout[0m[90m | [0m[34mFinished task checkout in 4ms[0m
+[35m[nvim-treesitter] [0m[36mcheckout[0m[90m | [0mHEAD is now at de9f0f3d feat(kdl)!: update parser and queries
+[35m[nvim-treesitter] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 163ms[0m
+[35m[nvim-treesitter] [0m[36m docs[0m[90m | [0m[34mRunning task docs[0m
+[35m[nvim-treesitter] [0m[36m docs[0m[90m | [0m
+[35m[nvim-treesitter] [0m[36m docs[0m[90m | [0m[34mFinished task docs in 2ms[0m
+[35m[tokyonight.nvim] [0m[36mfetch[0m[90m | [0m[34mFinished task fetch in 3509ms[0m
+[35m[tokyonight.nvim] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[catppuccin] [0m[36m     fetch[0m[90m | [0m[34mFinished task fetch in 3528ms[0m
+[35m[catppuccin] [0m[36m    status[0m[90m | [0m[34mRunning task status[0m
+[35m[friendly-snippets] [0m[36mfetch[0m[90m | [0m[34mFinished task fetch in 3549ms[0m
+[35m[friendly-snippets] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[bamboo.nvim] [0m[36m   status[0m[90m | [0m[34mFinished task status in 502ms[0m
+[35m[bamboo.nvim] [0m[36m checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[bamboo.nvim] [0m[36m checkout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[flash.nvim] [0m[36m    status[0m[90m | [0m[34mFinished task status in 476ms[0m
+[35m[flash.nvim] [0m[36m  checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[flash.nvim] [0m[36m  checkout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[aether] [0m[36m        status[0m[90m | [0m[34mFinished task status in 431ms[0m
+[35m[aether] [0m[36m      checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[aether] [0m[36m      checkout[0m[90m | [0m[34mFinished task checkout in 1ms[0m
+[35m[friendly-snippets] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 33ms[0m
+[35m[friendly-snippets] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[friendly-snippets] [0m[36mcheckout[0m[90m | [0mHEAD is now at b4d01b0 fix(debug): validator false positives from brace escapes and array descriptions
+[35m[which-key.nvim] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 528ms[0m
+[35m[which-key.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[which-key.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 2ms[0m
+[35m[friendly-snippets] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 11ms[0m
+[35m[harpoon] [0m[36m       status[0m[90m | [0m[34mFinished task status in 542ms[0m
+[35m[harpoon] [0m[36m     checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[harpoon] [0m[36m     checkout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[LazyVim] [0m[36m        fetch[0m[90m | [0m[34mFinished task fetch in 3629ms[0m
+[35m[LazyVim] [0m[36m       status[0m[90m | [0m[34mRunning task status[0m
+[35m[retro-82.nvim] [0m[36m status[0m[90m | [0m[34mFinished task status in 506ms[0m
+[35m[retro-82.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[retro-82.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mremote: Enumerating objects: 5, done.        
+[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mremote: Counting objects:  20% (1/5)        [35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mremote: Counting objects:  40% (2/5)        [35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mremote: Counting objects:  60% (3/5)        [35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mremote: Counting objects:  80% (4/5)        [35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mremote: Counting objects: 100% (5/5)        [35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mremote: Counting objects: 100% (5/5), done.        
+[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mremote: Compressing objects:  50% (1/2)        [35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mremote: Compressing objects: 100% (2/2)        [35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mremote: Compressing objects: 100% (2/2), done.        
+[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mremote: Total 5 (delta 2), reused 5 (delta 2), pack-reused 0 (from 0)        
+[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mReceiving objects:  20% (1/5)[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mReceiving objects:  40% (2/5)[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mReceiving objects:  60% (3/5)[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mReceiving objects:  80% (4/5)[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mReceiving objects: 100% (5/5)[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mReceiving objects: 100% (5/5), 1.09 KiB | 1.09 MiB/s, done.
+[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mResolving deltas:   0% (0/2)[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mResolving deltas:  50% (1/2)[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mResolving deltas: 100% (2/2)[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mResolving deltas: 100% (2/2), completed with 2 local objects.
+[35m[kanagawa.nvim] [0m[36m status[0m[90m | [0m[34mFinished task status in 473ms[0m
+[35m[kanagawa.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[kanagawa.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[bufferline.nvim] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 442ms[0m
+[35m[bufferline.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[bufferline.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[nvim-treesitter-textobjects] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 484ms[0m
+[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Enumerating objects: 22, done.        
+[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:   4% (1/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:   9% (2/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  13% (3/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  18% (4/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  22% (5/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  27% (6/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  31% (7/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  36% (8/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  40% (9/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  45% (10/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  50% (11/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  54% (12/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  59% (13/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  63% (14/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  68% (15/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  72% (16/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  77% (17/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  81% (18/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  86% (19/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  90% (20/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects:  95% (21/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects: 100% (22/22)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Counting objects: 100% (22/22), done.        
+[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Compressing objects:   7% (1/13)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Compressing objects:  15% (2/13)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Compressing objects:  23% (3/13)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Compressing objects:  30% (4/13)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Compressing objects:  38% (5/13)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Compressing objects:  46% (6/13)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Compressing objects:  53% (7/13)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Compressing objects:  61% (8/13)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Compressing objects:  69% (9/13)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Compressing objects:  76% (10/13)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Compressing objects:  84% (11/13)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Compressing objects:  92% (12/13)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Compressing objects: 100% (13/13)        [35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Compressing objects: 100% (13/13), done.        
+[35m[nvim-treesitter-textobjects] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[nvim-treesitter-textobjects] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 5ms[0m
+[35m[noice.nvim] [0m[36m    status[0m[90m | [0m[34mFinished task status in 503ms[0m
+[35m[noice.nvim] [0m[36m  checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[noice.nvim] [0m[36m  checkout[0m[90m | [0m[34mFinished task checkout in 1ms[0m
+[35m[catppuccin] [0m[36m    status[0m[90m | [0m[34mFinished task status in 192ms[0m
+[35m[catppuccin] [0m[36m  checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[catppuccin] [0m[36m  checkout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[trouble.nvim] [0m[36m  status[0m[90m | [0m[34mFinished task status in 604ms[0m
+[35m[trouble.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[trouble.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[nui.nvim] [0m[36m      status[0m[90m | [0m[34mFinished task status in 671ms[0m
+[35m[nui.nvim] [0m[36m    checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[nui.nvim] [0m[36m    checkout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[lualine.nvim] [0m[36m  status[0m[90m | [0m[34mFinished task status in 610ms[0m
+[35m[lualine.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[lualine.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[nightfox.nvim] [0m[36m status[0m[90m | [0m[34mFinished task status in 646ms[0m
+[35m[nightfox.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[nightfox.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[gitsigns.nvim] [0m[36m status[0m[90m | [0m[34mFinished task status in 578ms[0m
+[35m[gitsigns.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[plenary.nvim] [0m[36m  status[0m[90m | [0m[34mFinished task status in 527ms[0m
+[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0mFrom github.com:saghen/blink.cmp
+[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0m   d56aba4..a8cbc81  in-process-lsp -> origin/in-process-lsp
+[35m[plenary.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[plenary.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 1ms[0m
+[35m[blink.cmp] [0m[36m      fetch[0m[90m | [0m[34mFinished task fetch in 3853ms[0m
+[35m[blink.cmp] [0m[36m     status[0m[90m | [0m[34mRunning task status[0m
+[35m[gitsigns.nvim] [0m[36mcheckout[0m[90m | [0mPrevious HEAD position was 851a051 fix(hunks): stage topdelete hunks with a range
+[35m[gitsigns.nvim] [0m[36mcheckout[0m[90m | [0mHEAD is now at f2421c5 fix(attach): guard buffer validity after on_attach_pre yields
+[35m[gitsigns.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 57ms[0m
+[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:   4% (1/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:   9% (2/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  13% (3/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  18% (4/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  22% (5/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  27% (6/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  31% (7/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  36% (8/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  40% (9/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  45% (10/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  50% (11/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  54% (12/22)[35m[gitsigns.nvim] [0m[36m   docs[0m[90m | [0m[34mRunning task docs[0m
+[35m[gitsigns.nvim] [0m[36m   docs[0m[90m | [0m
+[35m[gitsigns.nvim] [0m[36m   docs[0m[90m | [0m[34mFinished task docs in 3ms[0m
+[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mremote: Total 22 (delta 11), reused 19 (delta 8), pack-reused 0 (from 0)        
+[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  59% (13/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  63% (14/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  68% (15/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  72% (16/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  77% (17/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  81% (18/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  86% (19/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  90% (20/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects:  95% (21/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects: 100% (22/22)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mReceiving objects: 100% (22/22), 17.02 KiB | 1.42 MiB/s, done.
+[35m[blink.cmp] [0m[36m     status[0m[90m | [0m[34mFinished task status in 38ms[0m
+[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mResolving deltas:   0% (0/11)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mResolving deltas:   9% (1/11)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mResolving deltas:  18% (2/11)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mResolving deltas:  27% (3/11)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mResolving deltas:  36% (4/11)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mResolving deltas:  45% (5/11)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mResolving deltas:  54% (6/11)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mResolving deltas:  63% (7/11)[35m[blink.cmp] [0m[36m   checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mResolving deltas:  72% (8/11)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mResolving deltas:  81% (9/11)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mResolving deltas:  90% (10/11)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mResolving deltas: 100% (11/11)[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mResolving deltas: 100% (11/11), completed with 4 local objects.
+[35m[tokyonight.nvim] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 398ms[0m
+[35m[blink.cmp] [0m[36m   checkout[0m[90m | [0mHEAD is now at 78336bc chore: bump version to 1.10.2
+[35m[tokyonight.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[tokyonight.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 1ms[0m
+[35m[blink.cmp] [0m[36m   checkout[0m[90m | [0m[34mFinished task checkout in 37ms[0m
+[35m[grug-far.nvim] [0m[36m status[0m[90m | [0m[34mFinished task status in 607ms[0m
+[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0mFrom github.com:neovim/nvim-lspconfig
+[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0m   45a3a444..77b7432d  master     -> origin/master
+[35m[grug-far.nvim] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[grug-far.nvim] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 4ms[0m
+[35m[LazyVim] [0m[36m       status[0m[90m | [0m[34mFinished task status in 312ms[0m
+[35m[LazyVim] [0m[36m     checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[nvim-lspconfig] [0m[36m fetch[0m[90m | [0m[34mFinished task fetch in 3944ms[0m
+[35m[nvim-lspconfig] [0m[36mstatus[0m[90m | [0m[34mRunning task status[0m
+[35m[mason.nvim] [0m[36m    status[0m[90m | [0m[34mFinished task status in 636ms[0m
+[35m[mason.nvim] [0m[36m  checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[mason.nvim] [0m[36m  checkout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[LazyVim] [0m[36m     checkout[0m[90m | [0m[34mFinished task checkout in 22ms[0m
+[35m[nvim-lspconfig] [0m[36mstatus[0m[90m | [0m[34mFinished task status in 204ms[0m
+[35m[nvim-lspconfig] [0m[36mcheckout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[snacks.nvim] [0m[36m   status[0m[90m | [0m[34mFinished task status in 855ms[0m
+[35m[snacks.nvim] [0m[36m checkout[0m[90m | [0m[34mRunning task checkout[0m
+[35m[snacks.nvim] [0m[36m checkout[0m[90m | [0m[34mFinished task checkout in 0ms[0m
+[35m[nvim-lspconfig] [0m[36mcheckout[0m[90m | [0mPrevious HEAD position was c59fc922 docs: update generated annotations skip-checks: true
+[35m[nvim-lspconfig] [0m[36mcheckout[0m[90m | [0mHEAD is now at ac9d2f7c docs: update generated annotations skip-checks: true
+[35m[nvim-lspconfig] [0m[36mcheckout[0m[90m | [0m[34mFinished task checkout in 54ms[0m
+[35m[nvim-lspconfig] [0m[36m  docs[0m[90m | [0m[34mRunning task docs[0m
+[35m[nvim-lspconfig] [0m[36m  docs[0m[90m | [0m
+[35m[nvim-lspconfig] [0m[36m  docs[0m[90m | [0m[34mFinished task docs in 5ms[0m
+[35m[gitsigns.nvim] [0m[36m    log[0m[90m | [0m[34mRunning task log[0m
+[35m[mason-lspconfig.nvim] [0m[36mlog[0m[90m | [0m[34mRunning task log[0m
+[35m[mini.ai] [0m[36m          log[0m[90m | [0m[34mRunning task log[0m
+[35m[mini.icons] [0m[36m       log[0m[90m | [0m[34mRunning task log[0m
+[35m[nvim-lint] [0m[36m        log[0m[90m | [0m[34mRunning task log[0m
+[35m[nvim-lspconfig] [0m[36m   log[0m[90m | [0m[34mRunning task log[0m
+[35m[nvim-treesitter] [0m[36mbuild[0m[90m | [0m[34mRunning task build[0m
+[35m[nvim-treesitter] [0m[36mbuild[0m[90m | [0m[34mFinished task build in 30ms[0m
+[35m[nvim-ts-autotag] [0m[36m  log[0m[90m | [0m[34mRunning task log[0m
+[35m[nvim-treesitter] [0m[36m  log[0m[90m | [0m[34mRunning task log[0m
+[35m[gitsigns.nvim] [0m[36m    log[0m[90m | [0m[34mFinished task log in 41ms[0m
+[35m[mason-lspconfig.nvim] [0m[36mlog[0m[90m | [0m[34mFinished task log in 41ms[0m
+[35m[mini.ai] [0m[36m          log[0m[90m | [0m[34mFinished task log in 41ms[0m
+[35m[mini.icons] [0m[36m       log[0m[90m | [0m[34mFinished task log in 41ms[0m
+[35m[nvim-lint] [0m[36m        log[0m[90m | [0m[34mFinished task log in 41ms[0m
+[35m[nvim-lspconfig] [0m[36m   log[0m[90m | [0m[34mFinished task log in 41ms[0m
+[35m[nvim-ts-autotag] [0m[36m  log[0m[90m | [0m[34mFinished task log in 42ms[0m
+[35m[nvim-treesitter] [0m[36m  log[0m[90m | [0m[34mFinished task log in 14ms[0m
+  [0;32m✓[0m Neovim plugins synchronized
+
+[1m[0;34m==> Stage 3.7: Synchronizing DWM & Quickshell Desktop Stack[0m
+  [0;36m•[0m Synchronizing dwm-oomaya repository...
+  [0;36m•[0m Compiling dwm-oomaya core...
+Built: dwm-oomayad
+  [0;32m✓[0m dwm-oomaya lifecycle scripts deployed
+  [0;36m•[0m Synchronizing quickshell-oomaya repository...
+  [0;36m•[0m Building and deploying Quickshell configuration & helpers...
+  [0;32m✓[0m quickshell-oomaya deployed to ~/.config/quickshell and ~/.local/bin
+  [0;36m•[0m Reloading active DWM shell in 'quickshell' mode...
+  [0;32m✓[0m DWM shell live-reloaded (quickshell)
+
+[1m[0;34m==> Stage 4: Running Automated Health Checks[0m
+[1mActive Verification Profile:[0m [0;34mworkstation[0m
+
+[1m[0;34m==> 1. Checking Symlink Integrity[0m
+  [0;32m✓ [PASS][0m No broken symlinks found in managed dotfiles & user paths
+
+[1m[0;34m==> 2. Checking Antigravity & Agent Integration[0m
+  [0;32m✓ [PASS][0m agy binary found in PATH: /home/rand/.local/bin/agy (1.4.2)
+  [0;32m✓ [PASS][0m antigravity-cli wrapper found in PATH: /home/rand/.local/bin/antigravity-cli
+  [0;32m✓ [PASS][0m antigravity-sync-artifacts utility found in PATH
+  [0;32m✓ [PASS][0m antigravity-watch-artifacts daemon script found in PATH
+  [0;32m✓ [PASS][0m art CLI artifact browser found in PATH
+  [0;32m✓ [PASS][0m antigravity-handoff utility found in PATH
+  [0;32m✓ [PASS][0m antigravity-harvest utility found in PATH
+  [0;32m✓ [PASS][0m app-install automated package installer found in PATH
+  [0;32m✓ [PASS][0m agy-update suite orchestrator found in PATH
+  [0;32m✓ [PASS][0m vault-rotate retention engine found in PATH
+  [0;32m✓ [PASS][0m Vault INDEX.md sitemap found (< 500 tokens)
+  [0;32m✓ [PASS][0m Zero circular symlinks in antigravity-artifacts
+  [0;32m✓ [PASS][0m Zero Hardcoded Literals Law verified: no /home/{rand,jkk,rand} in vault knowledge
+  [0;32m✓ [PASS][0m oomaya/Deliverable initialized and git-tracked at ~/Deliverable
+  [0;32m✓ [PASS][0m Obsidian ~/Vault remains pristine (clean of git tracking & AI artifacts)
+  [0;32m✓ [PASS][0m Documents/artifacts symlink is healthy -> /home/rand/Deliverable/antigravity-artifacts
+  [0;32m✓ [PASS][0m oomaya/antigravity-skills initialized and wired
+  [0;32m✓ [PASS][0m fleet-sync CLI / alias configured and accessible (Bash, Zsh, Fish)
+  [0;32m✓ [PASS][0m Unified Fleet Orchestrator (install.sh) is executable
+  [0;32m✓ [PASS][0m Default agent is configured to 'antigravity'
+  [1;33m! [WARN][0m omarchy-ctl operational in DEGRADED fallback mode
+  [1;33m! [WARN][0m agy-usage CLI installed but returned status: empty
+  [0;32m✓ [PASS][0m omarchy-agent-usage-antigravity collector discovered in PATH
+  [0;32m✓ [PASS][0m omarchy-agent-usage-update multi-collector runner discovered in PATH
+
+[1m[0;34m==> 3. Checking Terminal & System Defaults[0m
+  [0;32m✓ [PASS][0m Terminal emulator found in PATH: /usr/bin/ghostty
+  [0;32m✓ [PASS][0m Ghostty config exists and is accessible (~/.config/ghostty/)
+  [0;32m✓ [PASS][0m Omarchy desktop tools (flea/portal) skipped (workstation profile active)
+
+[1m[0;34m==> 4. Checking Background Daemons & Window Manager[0m
+  [0;32m✓ [PASS][0m antigravity-artifact-sync.service is active and running
+  [0;32m✓ [PASS][0m rclone binary found in PATH: /usr/bin/rclone (rclone v1.74.3)
+  [0;32m✓ [PASS][0m Runtime tmpfs (/run/user/1000) is healthy (1% used)
+
+[1m[0;34m==> 5. Checking Shell Scripts & Python Syntax[0m
+  [0;32m✓ [PASS][0m Syntax valid: install.sh (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: bootstrap.sh (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: verify.sh (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: hyprland-log-guard (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: Xwayland (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: agy-usage (Python)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-cli (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-handoff (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-harvest (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-ide (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-sync-artifacts (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-watch-artifacts (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: art (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fleet-check (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fleet-install (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fleet-sync (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-agent (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-default-agent (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: validate-desktop-command (Python)
+  [0;32m✓ [PASS][0m Syntax valid: agy-update (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: app-install (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: brave-origin-nightly (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: dwm-app-install (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fuzzel-menu-windows (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-agent-usage-antigravity (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-agent-usage-update (Bash)
+  [0;32m✓ [PASS][0m Binary executable valid: omarchy-ctl (ELF)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-flow (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-menu-apps (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-menu-windows (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-power-profile (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-rescue (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-vault-sync (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: quick-capture (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: vault-rotate (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-column-nav (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-column-pack (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-strip-flip (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fuzzel.sh (Bash)
+
+[1m[0;34m==> 6. Checking Neovim & Lazy.nvim Health[0m
+  [0;32m✓ [PASS][0m No legacy Neovim package directories detected (site/pack)
+  [0;32m✓ [PASS][0m Neovim lazy-lock.json exists and is tracked
+
+[1m[0;34m==> 7. Checking Portability Laws (Zero Hardcoded Usernames/Paths)[0m
+  [0;32m✓ [PASS][0m Zero hardcoded user literals detected across dotfiles codebase
+
+[1m[0;34m==> 8. Checking Agent Skills Federation & Integrity[0m
+  [0;32m✓ [PASS][0m skills.json is valid symlink and well-formed JSON
+  [0;32m✓ [PASS][0m Core skill 'agent-triad' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'agy-usage' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'architect' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'ast-grep-codemods' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'diagnose-crash' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'dotfiles-ops' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'dwm-craft' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'kernel-patch-pipeline' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'nvim-plugin-craft' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'omarchy' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'prompt-craft' has valid SKILL.md frontmatter
+
+[1m====================================================[0m
+[1mVerification Summary: [0;32m84 Passed[0m, [0;31m0 Failed[0m, [1;33m2 Warnings[0m
+[1m====================================================[0m
+
+[1m[0;34m==> Stage 5: Post-Verification Quarantine Retention[0m
+  [1;33m![0m Preserved 3 quarantined collision file(s) at: /home/rand/.local/state/dotfiles/quarantine/stow-collisions-1792558033
+  [0;36m•[0m Backups are retained for 7 days
+  [0;36m•[0m Pruned quarantine backups older than 7 days
+
+[1m[0;32m==> Fleet sync completed successfully across all repositories![0m
+
+[1mActive Verification Profile:[0m [0;34mworkstation[0m
+
+[1m[0;34m==> 1. Checking Symlink Integrity[0m
+  [0;32m✓ [PASS][0m No broken symlinks found in managed dotfiles & user paths
+
+[1m[0;34m==> 2. Checking Antigravity & Agent Integration[0m
+  [0;32m✓ [PASS][0m agy binary found in PATH: /home/rand/.local/bin/agy (1.4.2)
+  [0;32m✓ [PASS][0m antigravity-cli wrapper found in PATH: /home/rand/.local/bin/antigravity-cli
+  [0;32m✓ [PASS][0m antigravity-sync-artifacts utility found in PATH
+  [0;32m✓ [PASS][0m antigravity-watch-artifacts daemon script found in PATH
+  [0;32m✓ [PASS][0m art CLI artifact browser found in PATH
+  [0;32m✓ [PASS][0m antigravity-handoff utility found in PATH
+  [0;32m✓ [PASS][0m antigravity-harvest utility found in PATH
+  [0;32m✓ [PASS][0m app-install automated package installer found in PATH
+  [0;32m✓ [PASS][0m agy-update suite orchestrator found in PATH
+  [0;32m✓ [PASS][0m vault-rotate retention engine found in PATH
+  [0;32m✓ [PASS][0m Vault INDEX.md sitemap found (< 500 tokens)
+  [0;32m✓ [PASS][0m Zero circular symlinks in antigravity-artifacts
+  [0;32m✓ [PASS][0m Zero Hardcoded Literals Law verified: no /home/{rand,jkk,rand} in vault knowledge
+  [0;32m✓ [PASS][0m oomaya/Deliverable initialized and git-tracked at ~/Deliverable
+  [0;32m✓ [PASS][0m Obsidian ~/Vault remains pristine (clean of git tracking & AI artifacts)
+  [0;32m✓ [PASS][0m Documents/artifacts symlink is healthy -> /home/rand/Deliverable/antigravity-artifacts
+  [0;32m✓ [PASS][0m oomaya/antigravity-skills initialized and wired
+  [0;32m✓ [PASS][0m fleet-sync CLI / alias configured and accessible (Bash, Zsh, Fish)
+  [0;32m✓ [PASS][0m Unified Fleet Orchestrator (install.sh) is executable
+  [0;32m✓ [PASS][0m Default agent is configured to 'antigravity'
+  [1;33m! [WARN][0m omarchy-ctl operational in DEGRADED fallback mode
+  [1;33m! [WARN][0m agy-usage CLI installed but returned status: empty
+  [0;32m✓ [PASS][0m omarchy-agent-usage-antigravity collector discovered in PATH
+  [0;32m✓ [PASS][0m omarchy-agent-usage-update multi-collector runner discovered in PATH
+
+[1m[0;34m==> 3. Checking Terminal & System Defaults[0m
+  [0;32m✓ [PASS][0m Terminal emulator found in PATH: /usr/bin/ghostty
+  [0;32m✓ [PASS][0m Ghostty config exists and is accessible (~/.config/ghostty/)
+  [0;32m✓ [PASS][0m Omarchy desktop tools (flea/portal) skipped (workstation profile active)
+
+[1m[0;34m==> 4. Checking Background Daemons & Window Manager[0m
+  [0;32m✓ [PASS][0m antigravity-artifact-sync.service is active and running
+  [0;32m✓ [PASS][0m rclone binary found in PATH: /usr/bin/rclone (rclone v1.74.3)
+  [0;32m✓ [PASS][0m Runtime tmpfs (/run/user/1000) is healthy (1% used)
+
+[1m[0;34m==> 5. Checking Shell Scripts & Python Syntax[0m
+  [0;32m✓ [PASS][0m Syntax valid: install.sh (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: bootstrap.sh (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: verify.sh (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: hyprland-log-guard (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: Xwayland (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: agy-usage (Python)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-cli (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-handoff (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-harvest (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-ide (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-sync-artifacts (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-watch-artifacts (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: art (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fleet-check (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fleet-install (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fleet-sync (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-agent (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-default-agent (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: validate-desktop-command (Python)
+  [0;32m✓ [PASS][0m Syntax valid: agy-update (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: app-install (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: brave-origin-nightly (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: dwm-app-install (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fuzzel-menu-windows (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-agent-usage-antigravity (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-agent-usage-update (Bash)
+  [0;32m✓ [PASS][0m Binary executable valid: omarchy-ctl (ELF)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-flow (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-menu-apps (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-menu-windows (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-power-profile (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-rescue (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-vault-sync (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: quick-capture (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: vault-rotate (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-column-nav (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-column-pack (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-strip-flip (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fuzzel.sh (Bash)
+
+[1m[0;34m==> 6. Checking Neovim & Lazy.nvim Health[0m
+  [0;32m✓ [PASS][0m No legacy Neovim package directories detected (site/pack)
+  [0;32m✓ [PASS][0m Neovim lazy-lock.json exists and is tracked
+
+[1m[0;34m==> 7. Checking Portability Laws (Zero Hardcoded Usernames/Paths)[0m
+  [0;32m✓ [PASS][0m Zero hardcoded user literals detected across dotfiles codebase
+
+[1m[0;34m==> 8. Checking Agent Skills Federation & Integrity[0m
+  [0;32m✓ [PASS][0m skills.json is valid symlink and well-formed JSON
+  [0;32m✓ [PASS][0m Core skill 'agent-triad' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'agy-usage' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'architect' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'ast-grep-codemods' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'diagnose-crash' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'dotfiles-ops' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'dwm-craft' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'kernel-patch-pipeline' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'nvim-plugin-craft' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'omarchy' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'prompt-craft' has valid SKILL.md frontmatter
+
+[1m====================================================[0m
+[1mVerification Summary: [0;32m84 Passed[0m, [0;31m0 Failed[0m, [1;33m2 Warnings[0m
+[1m====================================================[0m

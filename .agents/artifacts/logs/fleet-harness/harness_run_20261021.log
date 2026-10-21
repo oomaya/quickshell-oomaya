@@ -1,0 +1,143 @@
+################ A: canary has 2 Failed -> must abort (rc=2) with ZERO ssh calls
+
+==> Fleet Rollout (canary: local, dispatch: sequential)
+  • Per-node logs: /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141709
+  • Canary: running local fleet sync on mint-vm ...
+  ✗ [CANARY FAILED] mint-vm: exit code 1; 2 verification check(s) failed - aborting fleet rollout (zero remote mutation)
+  • Canary log: /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141709/mint-vm.log
+
+================================================================================
+  FLEET ROLLOUT SUMMARY [2026-10-21 14:17:09]
+================================================================================
+  Node             Status         Pass   Fail   Warn   Secs   Log / Reason
+  mint-vm          CANARY-FAIL    83     2      1      0      exit code 1; 2 verification check(s) failed (/tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141709/mint-vm.log)
+--------------------------------------------------------------------------------
+  WARNINGS (verbatim from node logs):
+    [mint-vm] [WARN] omarchy-ctl operational in DEGRADED fallback mode
+  Result: 0 passed, 0 with warnings, 1 failed, 0 skipped.
+================================================================================
+
+RC=2
+ssh calls: 0
+
+################ B: canary 0 Failed + 1 warning (tolerated), SEQUENTIAL, mixed node results (rc=1 expected, all 4 attempted)
+
+==> Fleet Rollout (canary: local, dispatch: sequential)
+  • Per-node logs: /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141709
+  • Canary: running local fleet sync on mint-vm ...
+  ✓ Canary passed on mint-vm (Passed=83 Failed=0 Warnings=1)
+  • Dispatching to fedora44-vm (100.101.243.54) ...
+  • Dispatching to omarchy-gram (100.82.99.66) ...
+  • Dispatching to omarchy-vm (100.124.231.48) ...
+  • Dispatching to peppermint-vm (100.126.37.73) ...
+
+================================================================================
+  FLEET ROLLOUT SUMMARY [2026-10-21 14:17:10]
+================================================================================
+  Node             Status         Pass   Fail   Warn   Secs   Log / Reason
+  mint-vm          CANARY-WARN    83     0      1      0      /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141709/mint-vm.log
+  fedora44-vm      WARN           84     0      1      1      /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141709/fedora44-vm.log
+  omarchy-gram     PASS           85     0      0      0      /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141709/omarchy-gram.log
+  omarchy-vm       FAIL           -      -      -      0      ssh failed/unreachable (rc=255) (/tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141709/omarchy-vm.log)
+  peppermint-vm    FAIL           80     2      0      0      2 verification check(s) failed (/tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141709/peppermint-vm.log)
+  muse-1           SKIPPED        -      -      -      -      SKIP-NONLINUX
+  muse             SKIPPED        -      -      -      -      OFFLINE
+  win11-pc         SKIPPED        -      -      -      -      SKIP-NONLINUX
+--------------------------------------------------------------------------------
+  WARNINGS (verbatim from node logs):
+    [mint-vm] [WARN] omarchy-ctl operational in DEGRADED fallback mode
+    [fedora44-vm] [WARN] omarchy-ctl operational in DEGRADED fallback mode
+  Result: 1 passed, 2 with warnings, 2 failed, 3 skipped.
+================================================================================
+
+RC=1
+ssh calls: 4
+--- call order/timestamps:
+1792559829.950834856 100.101.243.54
+1792559830.960220597 100.82.99.66
+1792559830.968559590 100.124.231.48
+1792559830.974734358 100.126.37.73
+
+################ C: same, PARALLEL
+
+==> Fleet Rollout (canary: local, dispatch: parallel)
+  • Per-node logs: /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141711
+  • Canary: running local fleet sync on mint-vm ...
+  ✓ Canary passed on mint-vm (Passed=83 Failed=0 Warnings=1)
+  • Dispatching to fedora44-vm (100.101.243.54) [parallel]
+  • Dispatching to omarchy-gram (100.82.99.66) [parallel]
+  • Dispatching to omarchy-vm (100.124.231.48) [parallel]
+  • Dispatching to peppermint-vm (100.126.37.73) [parallel]
+
+================================================================================
+  FLEET ROLLOUT SUMMARY [2026-10-21 14:17:12]
+================================================================================
+  Node             Status         Pass   Fail   Warn   Secs   Log / Reason
+  mint-vm          CANARY-WARN    83     0      1      0      /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141711/mint-vm.log
+  fedora44-vm      WARN           84     0      1      1      /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141711/fedora44-vm.log
+  omarchy-gram     PASS           85     0      0      0      /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141711/omarchy-gram.log
+  omarchy-vm       FAIL           -      -      -      0      ssh failed/unreachable (rc=255) (/tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141711/omarchy-vm.log)
+  peppermint-vm    FAIL           80     2      0      0      2 verification check(s) failed (/tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141711/peppermint-vm.log)
+  muse-1           SKIPPED        -      -      -      -      SKIP-NONLINUX
+  muse             SKIPPED        -      -      -      -      OFFLINE
+  win11-pc         SKIPPED        -      -      -      -      SKIP-NONLINUX
+--------------------------------------------------------------------------------
+  WARNINGS (verbatim from node logs):
+    [mint-vm] [WARN] omarchy-ctl operational in DEGRADED fallback mode
+    [fedora44-vm] [WARN] omarchy-ctl operational in DEGRADED fallback mode
+  Result: 1 passed, 2 with warnings, 2 failed, 3 skipped.
+================================================================================
+
+RC=1
+ssh calls: 4
+--- call timestamps:
+1792559831.070869937 100.101.243.54
+1792559831.071386653 100.124.231.48
+1792559831.071508394 100.82.99.66
+1792559831.071754913 100.126.37.73
+
+################ D: --nodes fedora44-vm only (rc=0 expected, 1 ssh call)
+
+==> Fleet Rollout (canary: local, dispatch: sequential)
+  • Per-node logs: /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141712
+  • Canary: running local fleet sync on mint-vm ...
+  ✓ Canary passed on mint-vm (Passed=83 Failed=0 Warnings=1)
+  • Dispatching to fedora44-vm (100.101.243.54) ...
+
+================================================================================
+  FLEET ROLLOUT SUMMARY [2026-10-21 14:17:13]
+================================================================================
+  Node             Status         Pass   Fail   Warn   Secs   Log / Reason
+  mint-vm          CANARY-WARN    83     0      1      0      /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141712/mint-vm.log
+  fedora44-vm      WARN           84     0      1      1      /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141712/fedora44-vm.log
+  muse-1           SKIPPED        -      -      -      -      SKIP-NONLINUX
+  muse             SKIPPED        -      -      -      -      OFFLINE
+  omarchy-gram     SKIPPED        -      -      -      -      EXCLUDED
+  omarchy-vm       SKIPPED        -      -      -      -      EXCLUDED
+  peppermint-vm    SKIPPED        -      -      -      -      EXCLUDED
+  win11-pc         SKIPPED        -      -      -      -      SKIP-NONLINUX
+--------------------------------------------------------------------------------
+  WARNINGS (verbatim from node logs):
+    [mint-vm] [WARN] omarchy-ctl operational in DEGRADED fallback mode
+    [fedora44-vm] [WARN] omarchy-ctl operational in DEGRADED fallback mode
+  Result: 0 passed, 2 with warnings, 0 failed, 6 skipped.
+================================================================================
+
+RC=0
+ssh calls: 1
+
+################ E: per-node logs retained
+      3 mint-vm.rc
+      3 mint-vm.log
+      3 fedora44-vm.rc
+      3 fedora44-vm.log
+      2 peppermint-vm.rc
+      2 peppermint-vm.log
+      2 omarchy-vm.rc
+      2 omarchy-vm.log
+      2 omarchy-gram.rc
+      2 omarchy-gram.log
+      2 
+      1 /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141712/:
+      1 /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141711/:
+      1 /tmp/tmp.8nGMCcNoj9/state/dotfiles/fleet-logs/20261021_141709/:
