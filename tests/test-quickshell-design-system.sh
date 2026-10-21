@@ -8,6 +8,7 @@ repo=$(
 
 theme=$repo/config/quickshell/core/Theme.qml
 core=$repo/config/quickshell/core
+shell=$repo/config/quickshell
 design_doc=$repo/docs/OMARCHY-UI-ADAPTATION.md
 [ -f "$design_doc" ] || design_doc=$repo/../dwm-oomaya/docs/OMARCHY-UI-ADAPTATION.md
 
