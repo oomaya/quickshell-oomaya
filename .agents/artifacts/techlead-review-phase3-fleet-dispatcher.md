@@ -46,8 +46,13 @@ Sonnet requested rulings on three specific implementation choices:
 Recorded in [`harness_run_20261021.log`](file:///home/rand/.gemini/antigravity-ide/brain/6adb259b-5a4d-4666-bdce-7c7728d36855/logs/fleet-harness/harness_run_20261021.log):
 - **Scenario A (Canary Failure)**: Simulated 2 failed checks on canary $\rightarrow$ Rollout immediately aborted with **`rc=2` and 0 SSH calls** (zero remote mutation).
 - **Scenario B (Sequential with Mixed Results)**: Canary with 1 warning passed $\rightarrow$ Dispatched sequentially (calls spaced $\ge 1$s) across 4 nodes. `omarchy-vm` (timeout rc=255) and `peppermint-vm` (2 failed checks) failed, while `omarchy-gram` and `fedora44-vm` succeeded. All 4 nodes were attempted without aborting the sequence.
-- **Scenario C (Parallel)**: All 4 calls dispatched within 2ms.
+- **Scenario C (Parallel)**: All 4 calls dispatched concurrently within 2ms.
 - **Scenario D (Node Filtering)**: `--nodes fedora44-vm` dispatched exactly 1 SSH call and returned `rc=0`.
+- **Scenario E (Per-Node Log & RC Persistence)**: Audited filesystem retention under `$XDG_STATE_HOME/dotfiles/fleet-logs/<timestamp>/`. Confirmed 100% of attempted node runs produced matched pairs of `<node>.log` (full stdout/stderr) and `<node>.rc` (exit code + duration in seconds):
+  - `mint-vm.log` / `mint-vm.rc`: 4 sets (Canary executions across Scenarios A~D)
+  - `fedora44-vm.log` / `fedora44-vm.rc`: 3 sets (Scenarios B, C, D)
+  - `omarchy-gram`, `omarchy-vm`, `peppermint-vm`: 2 sets each (Scenarios B, C)
+  - Zero log collisions or truncated files detected.
 
 ### 4.2 Dry-Run & Live Mesh Verification
 Recorded in [`dryrun_mint-vm_20261021.log`](file:///home/rand/.gemini/antigravity-ide/brain/6adb259b-5a4d-4666-bdce-7c7728d36855/logs/fleet-harness/dryrun_mint-vm_20261021.log):
