@@ -1,0 +1,105 @@
+[1mActive Verification Profile:[0m [0;34mworkstation[0m
+
+[1m[0;34m==> 1. Checking Symlink Integrity[0m
+  [0;32m✓ [PASS][0m No broken symlinks found in managed dotfiles & user paths
+
+[1m[0;34m==> 2. Checking Antigravity & Agent Integration[0m
+  [0;32m✓ [PASS][0m agy binary found in PATH: /home/rand/.local/bin/agy (1.4.3)
+  [0;32m✓ [PASS][0m antigravity-cli wrapper found in PATH: /home/rand/.local/bin/antigravity-cli
+  [0;32m✓ [PASS][0m antigravity-sync-artifacts utility found in PATH
+  [0;32m✓ [PASS][0m antigravity-watch-artifacts daemon script found in PATH
+  [0;32m✓ [PASS][0m art CLI artifact browser found in PATH
+  [0;32m✓ [PASS][0m antigravity-handoff utility found in PATH
+  [0;32m✓ [PASS][0m antigravity-harvest utility found in PATH
+  [0;32m✓ [PASS][0m app-install automated package installer found in PATH
+  [0;32m✓ [PASS][0m agy-update suite orchestrator found in PATH
+  [0;32m✓ [PASS][0m vault-rotate retention engine found in PATH
+  [0;32m✓ [PASS][0m Vault INDEX.md sitemap found (< 500 tokens)
+  [0;32m✓ [PASS][0m Zero circular symlinks in antigravity-artifacts
+  [0;32m✓ [PASS][0m Zero Hardcoded Literals Law verified: no /home/{rand,jkk,rand} in vault knowledge
+  [0;32m✓ [PASS][0m oomaya/Deliverable initialized and git-tracked at ~/Deliverable
+  [0;32m✓ [PASS][0m Obsidian ~/Vault remains pristine (clean of git tracking & AI artifacts)
+  [0;32m✓ [PASS][0m Documents/artifacts symlink is healthy -> /home/rand/Deliverable/antigravity-artifacts
+  [0;32m✓ [PASS][0m oomaya/antigravity-skills initialized and wired
+  [0;32m✓ [PASS][0m fleet-sync CLI / alias configured and accessible (Bash, Zsh, Fish)
+  [0;32m✓ [PASS][0m Unified Fleet Orchestrator (install.sh) is executable
+  [0;32m✓ [PASS][0m Default agent is configured to 'antigravity'
+  [1;33m! [WARN][0m omarchy-ctl operational in DEGRADED fallback mode
+  [0;32m✓ [PASS][0m agy-usage quota telemetry is HEALTHY (JSON response verified)
+  [0;32m✓ [PASS][0m omarchy-agent-usage-antigravity collector discovered in PATH
+  [0;32m✓ [PASS][0m omarchy-agent-usage-update multi-collector runner discovered in PATH
+
+[1m[0;34m==> 3. Checking Terminal & System Defaults[0m
+  [0;32m✓ [PASS][0m Terminal emulator found in PATH: /usr/bin/ghostty
+  [0;32m✓ [PASS][0m Ghostty config exists and is accessible (~/.config/ghostty/)
+  [0;32m✓ [PASS][0m Omarchy desktop tools (flea/portal) skipped (workstation profile active)
+
+[1m[0;34m==> 4. Checking Background Daemons & Window Manager[0m
+  [0;32m✓ [PASS][0m antigravity-artifact-sync.service is active and running
+  [0;32m✓ [PASS][0m rclone binary found in PATH: /usr/bin/rclone (rclone v1.60.1-DEV)
+  [0;32m✓ [PASS][0m Runtime tmpfs (/run/user/1000) is healthy (1% used)
+
+[1m[0;34m==> 5. Checking Shell Scripts & Python Syntax[0m
+  [0;32m✓ [PASS][0m Syntax valid: install.sh (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: bootstrap.sh (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: verify.sh (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: hyprland-log-guard (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: Xwayland (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: agy-usage (Python)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-cli (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-handoff (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-harvest (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-ide (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-sync-artifacts (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: antigravity-watch-artifacts (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: art (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fleet-check (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fleet-install (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fleet-sync (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-agent (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-default-agent (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: validate-desktop-command (Python)
+  [0;32m✓ [PASS][0m Syntax valid: agy-update (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: app-install (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: brave-origin-nightly (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: dwm-app-install (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fuzzel-menu-windows (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-agent-usage-antigravity (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-agent-usage-update (Bash)
+  [0;32m✓ [PASS][0m Binary executable valid: omarchy-ctl (ELF)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-flow (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-menu-apps (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-menu-windows (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-power-profile (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-rescue (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-vault-sync (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: quick-capture (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: vault-rotate (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-column-nav (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-column-pack (Python)
+  [0;32m✓ [PASS][0m Syntax valid: omarchy-strip-flip (Bash)
+  [0;32m✓ [PASS][0m Syntax valid: fuzzel.sh (Bash)
+
+[1m[0;34m==> 6. Checking Neovim & Lazy.nvim Health[0m
+
+[1m[0;34m==> 7. Checking Portability Laws (Zero Hardcoded Usernames/Paths)[0m
+  [0;32m✓ [PASS][0m Zero hardcoded user literals detected across dotfiles codebase
+
+[1m[0;34m==> 8. Checking Agent Skills Federation & Integrity[0m
+  [0;32m✓ [PASS][0m skills.json is valid symlink and well-formed JSON
+  [0;32m✓ [PASS][0m Core skill 'agent-triad' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'agy-usage' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'architect' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'ast-grep-codemods' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'diagnose-crash' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'dotfiles-ops' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'dwm-craft' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'kernel-patch-pipeline' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'nvim-plugin-craft' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'omarchy' has valid SKILL.md frontmatter
+  [0;32m✓ [PASS][0m Core skill 'prompt-craft' has valid SKILL.md frontmatter
+
+[1m====================================================[0m
+[1mVerification Summary: [0;32m83 Passed[0m, [0;31m0 Failed[0m, [1;33m1 Warnings[0m
+[1m====================================================[0m

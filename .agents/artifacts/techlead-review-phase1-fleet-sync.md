@@ -39,18 +39,38 @@ Sonnet's implementation of `sync_workstation_desktops()` in `dotfiles/install.sh
 
 ## 4. Empirical Test Verification Evidence
 
-From the live execution log on `mint-vm`:
+From the live execution on `mint-vm` (persisted in raw log artifact: [verify_mint-vm_20261021.log](file:///home/rand/.gemini/antigravity-ide/brain/6adb259b-5a4d-4666-bdce-7c7728d36855/logs/verify_mint-vm_20261021.log)):
 - **Stage 3.7 Output**:
   - `✓ dwm-oomaya lifecycle scripts deployed`
   - `✓ quickshell-oomaya deployed to ~/.config/quickshell and ~/.local/bin`
   - `✓ DWM shell live-reloaded (quickshell)`
 - **Health Checks (Stage 4)**:
-  - `Verification Summary: 85 Passed, 0 Failed, 1 Warnings`
+  - `Verification Summary: 83 Passed, 0 Failed, 1 Warnings` (reproducible from log)
   - Zero broken symlinks, syntax valid on all scripts.
 - **Process State Verification**:
   - `Quickshell Proc : RUNNING (PID 500955)`
   - `Dunst Daemon    : STOPPED`
   - `DWM Status Feed : STOPPED`
+
+### 4.1 Transparent Analysis of the 1 Warning
+Per human partner review directive, all non-zero warnings must be explicitly surfaced with root-cause and impact analysis:
+- **Exact Warning Line**:
+  ```text
+  ! [WARN] omarchy-ctl operational in DEGRADED fallback mode
+  ```
+- **Root Cause**:
+  `verify.sh` executes `omarchy-ctl --strict info`. `omarchy-ctl` queries `/run/user/1000/dwm-oomaya/ipc.sock`. On `mint-vm`, dwm-oomaya is running under its standard X11 event loop and Quickshell IPC, while the experimental zero-fork UDS daemon (`dwm-oomayad`) is compiled but not enabled as an active socket listener. Consequently, `omarchy-ctl` correctly reports:
+  ```json
+  {
+    "compositor": "dwm-oomaya",
+    "socket_path": "/run/user/1000/dwm-oomaya/ipc.sock",
+    "socket_status": "DEGRADED"
+  }
+  ```
+- **Impact Assessment**: **Zero Impact**. `omarchy-ctl` gracefully falls back to CLI commands. It is an expected benign state on X11 nodes and does not affect `fleet-sync`, `dwm`, or `quickshell`.
+- **Reproducible Log Archive**:
+  - Session Log: [verify_mint-vm_20261021.log](file:///home/rand/.gemini/antigravity-ide/brain/6adb259b-5a4d-4666-bdce-7c7728d36855/logs/verify_mint-vm_20261021.log)
+  - Project Mirror: [.agents/artifacts/logs/verify_mint-vm_20261021.log](file:///home/rand/.local/src/quickshell-oomaya/.agents/artifacts/logs/verify_mint-vm_20261021.log)
 
 ---
 
