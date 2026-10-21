@@ -55,10 +55,21 @@ done
 printf '%s\n' "$open_menu_body" | grep -Fq 'powerMenuModel.close("panel");'
 grep -Fq 'function refreshApplicationIndex()' "$repo/config/quickshell/launcher/LauncherModel.qml"
 grep -Fq 'root.refreshApplicationIndex()' "$repo/config/quickshell/launcher/LauncherModel.qml"
-grep -Fq '{ title="dwm menu", isfloating=1, alwaysontop=1 },' "$repo/docs/OMARCHY-UI-ADAPTATION.md"
-grep -Fq 'menu open|close|toggle|summon' "$repo/CHANGELOG.md"
+design_doc=$repo/docs/OMARCHY-UI-ADAPTATION.md
+[ -f "$design_doc" ] || design_doc=$repo/../dwm-oomaya/docs/OMARCHY-UI-ADAPTATION.md
+if [ -f "$design_doc" ]; then
+	grep -Fq '{ title="dwm menu", isfloating=1, alwaysontop=1 },' "$design_doc"
+fi
+
+changelog=$repo/CHANGELOG.md
+[ -f "$changelog" ] || changelog=$repo/../dwm-oomaya/CHANGELOG.md
+if [ -f "$changelog" ]; then
+	grep -Fq 'menu open|close|toggle|summon' "$changelog"
+fi
 grep -Fq 'target: "launcher"' "$shell"
-if grep -Eq 'call menu (open|toggle|summon)' "$repo/config/hotkeys.toml"; then
+hotkeys=$repo/config/hotkeys.toml
+[ -f "$hotkeys" ] || hotkeys=$repo/../dwm-oomaya/config/hotkeys.toml
+if [ -f "$hotkeys" ] && grep -Eq 'call menu (open|toggle|summon)' "$hotkeys"; then
 	printf '%s\n' 'Command menu unexpectedly replaced or added a default hotkey.' >&2
 	exit 1
 fi

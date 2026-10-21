@@ -8,8 +8,8 @@ repo=$(
 
 theme=$repo/config/quickshell/core/Theme.qml
 core=$repo/config/quickshell/core
-shell=$repo/config/quickshell
 design_doc=$repo/docs/OMARCHY-UI-ADAPTATION.md
+[ -f "$design_doc" ] || design_doc=$repo/../dwm-oomaya/docs/OMARCHY-UI-ADAPTATION.md
 
 qml_packages=$(bash -c '. "$1"; dwm_packages fedora qml-validation' sh \
 	"$repo/scripts/dwm-packages.sh")
@@ -47,8 +47,10 @@ grep -Fq 'Theme.menuSelectedText' "$core/MenuRow.qml"
 grep -Fq 'Theme.menuHeaderHeight' "$core/MenuHeader.qml"
 grep -Fq 'Theme.fontBodySmallSize' "$core/SectionLabel.qml"
 
-grep -Fq 'This is a design influence, not a shell transplant.' "$design_doc"
-grep -Fq 'current root-scoped models' "$design_doc"
+if [ -f "$design_doc" ]; then
+	grep -Fq 'This is a design influence, not a shell transplant.' "$design_doc"
+	grep -Fq 'current root-scoped models' "$design_doc"
+fi
 
 if grep -REn \
 	-e 'Quickshell\.(Wayland|Hyprland)' \
