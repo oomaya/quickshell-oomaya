@@ -18,7 +18,17 @@ network_pane=$repo/config/quickshell/settings/NetworkSettingsPane.qml
 # Syntax is validated here; executable state and lifecycle are exercised by
 # test-quickshell-settings-xvfb.sh. The assertions below protect module wiring
 # and security boundaries that are intentionally source-level contracts.
+set +e
 "$repo/scripts/quickshell-qmllint" --root "$repo/config/quickshell"
+qmllint_status=$?
+set -e
+if [ "$qmllint_status" -ne 0 ]; then
+	if [ "$qmllint_status" -eq 127 ] || [ "$qmllint_status" -eq 77 ]; then
+		printf 'SKIP: qmllint is unavailable; skipping syntax check\n'
+	else
+		exit "$qmllint_status"
+	fi
+fi
 
 test "$(grep -c 'AppearanceModel {' "$shell_qml")" -eq 1
 grep -Fq 'appearanceModel: appearanceModel' "$shell_qml"
