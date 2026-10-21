@@ -1,7 +1,7 @@
 # One-Page Design: Tailscale Fleet Dispatcher (`fleet-sync --fleet`)
 
 > **Author**: Antigravity Technical Lead & Systems Architect  
-> **Status**: Proposed (Awaiting Human Partner Sign-off)  
+> **Status**: **APPROVED & SIGNED-OFF** (with Human Partner Amendments)  
 > **Scope**: Remote coordination across Omarchy (Hyprland) and DWM/Quickshell nodes  
 > **Prerequisites**: Phase 1 local engine (`install.sh`) complete & Phase 2 verified  
 
@@ -9,10 +9,11 @@
 
 ## 1. Architectural Philosophy & Core Tenets
 
-1. **Canary-First Principle**: Never dispatch to remote nodes until the local canary node (`mint-vm`) verifies 100% green. If the canary fails, rollout immediately halts.
-2. **Zero Blast Radius (Failure Isolation)**: Each remote node executes in an isolated worker thread. A network timeout or compile failure on Node A never interrupts Node B.
+1. **Canary-First Principle (0-Failed Gate)**: Never dispatch to remote nodes until the local canary node (`mint-vm`) passes with **`0 Failed`**. Benign warnings (such as `omarchy-ctl DEGRADED` on X11 nodes) are tolerated and surfaced in telemetry, preventing permanent gate lockout. If canary reports any failures, rollout immediately halts.
+2. **Sequential Default with Failure Isolation**: Remote execution defaults to **sequential dispatch** (predictable, one node at a time) to eliminate fleet-wide concurrency storms. Parallel dispatch is available as an explicit opt-in (`--parallel`). A failure on Node A never halts Node B.
 3. **Reproducible Per-Node Logs**: Every run writes raw stdout/stderr into dedicated, timestamped per-node files for auditability.
 4. **Dry-Run Predictability**: An explicit `--dry-run` flag visualizes targets, online states, and commands without executing any mutations.
+5. **v1 Scope Boundary**: Automated multi-node rollback is formally **Out of Scope for v1** (individual node recovery remains manual via Git HEAD reset).
 
 ---
 
@@ -23,7 +24,8 @@ Usage: fleet-sync [OPTIONS]
 
 Options:
   --sync               Run local 5-stage synchronization pipeline (default)
-  --fleet              Broadcast fleet synchronization across all online Tailscale nodes
+  --fleet              Broadcast fleet synchronization across all online Tailscale nodes (Sequential by default)
+  --parallel           (Used with --fleet) Enable concurrent multi-node dispatch instead of sequential
   --dry-run, -n        (Used with --fleet) Preview target nodes and actions without execution
   --canary <node>      Override canary target (Default: local node / mint-vm)
   --nodes <n1,n2...>   Target specific subset of fleet nodes (Default: all online nodes)
@@ -35,19 +37,17 @@ Options:
 
 ```mermaid
 flowchart TD
-    A["fleet-sync --fleet [--dry-run]"] --> B{"--dry-run specified?"}
+    A["fleet-sync --fleet [--dry-run] [--parallel]"] --> B{"--dry-run specified?"}
     B -- Yes --> C["🔍 Preview Mode:\nQuery tailscale status -> Probe pings -> Print target matrix -> Exit 0"]
     B -- No --> D["🐤 Stage 1: Local Canary Verification (mint-vm)"]
-    D --> E{"Canary Passed?\n(verify.sh == 0)"}
-    E -- Failed --> F["🛑 CANARY ABORT:\nLog canary failure -> Halt fleet rollout -> Zero remote mutation"]
-    E -- Passed --> G["🌐 Stage 2: Discover Online Tailscale Nodes"]
-    G --> H["🚀 Stage 3: Isolated Remote Dispatch (Parallel or Sequential)"]
-    H --> I["🖥️ Node 1: fedora44-vm\n(tee to logs/fedora44.log)"]
-    H --> J["💻 Node 2: omarchy-vm\n(tee to logs/omarchy-vm.log)"]
-    H --> K["💻 Node 3: omarchy-gram\n(tee to logs/omarchy-gram.log)"]
-    I --> L["📊 Stage 4: Fleet Telemetry Summary & Exit Code Resolution"]
-    J --> L
-    K --> L
+    D --> E{"Canary Passed?\n(Failed == 0)"}
+    E -- Failed > 0 --> F["🛑 CANARY ABORT:\nLog canary failure -> Halt fleet rollout -> Zero remote mutation"]
+    E -- Failed == 0 --> G["🌐 Stage 2: Discover Online Tailscale Nodes"]
+    G --> H{"--parallel flag?"}
+    H -- No (Default) --> I["🚶 Sequential Dispatch Loop\n(Node 1 -> Node 2 -> Node 3)"]
+    H -- Yes --> J["⚡ Parallel Dispatch Workers\n(Concurrent subshells)"]
+    I --> K["📊 Stage 4: Fleet Telemetry Summary & Exit Code Resolution"]
+    J --> K
 ```
 
 ---
@@ -57,8 +57,8 @@ flowchart TD
 ### 4.1. Local Canary Gate (`mint-vm`)
 Before initiating any remote SSH connection:
 1. Run local `./install.sh --sync` and `./verify.sh --profile workstation`.
-2. Assert zero broken symlinks and exit code `0`.
-3. If canary check encounters errors, print `[CANARY FAILED]` and exit with status code `2`.
+2. **0-Failed Gate Criterion**: Assert that `verify.sh` completes with **`0 Failed`** checks and zero broken symlinks. Benign warnings (such as `omarchy-ctl DEGRADED` on X11) are tolerated and surfaced in telemetry, preventing permanent lockouts on healthy desktop configurations.
+3. If canary encounters any hard failure (`Failed > 0`), print `[CANARY FAILED]` with failing vectors and abort fleet rollout with exit code `2`.
 
 ### 4.2. Dry-Run Mode (`--dry-run`)
 When `--dry-run` is invoked:
