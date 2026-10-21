@@ -58,7 +58,7 @@ fixtures:
 		if [ -L config ] && [ "$$(readlink config)" = "." ]; then rm -f config; fi; \
 		mkdir -p config; \
 		for f in themes.toml hotkeys.toml window-rules.toml; do \
-			[ -e "config/$$f" ] || ln -sf "../../dwm-oomaya/config/$$f" "config/$$f" 2>/dev/null || cp "../dwm-oomaya/config/$$f" "config/$$f"; \
+			[ -e "config/$$f" ] || cp "../dwm-oomaya/config/$$f" "config/$$f" 2>/dev/null || true; \
 		done; \
 		[ -e "config/quickshell" ] || ln -sf "../quickshell" "config/quickshell"; \
 		for s in dwm-packages.sh dwm-session-launch dwm-panel-settings dwm-lock dwm-system-health dwm-settings-theme check-deps.sh; do \
@@ -86,4 +86,4 @@ check: all fixtures
 	done; \
 	exit $$status
 
-.PHONY: all clean install uninstall check
+.PHONY: all clean install uninstall check fixtures
