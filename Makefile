@@ -69,6 +69,8 @@ fixtures:
 		[ -e "scripts" ] || ln -sf bin scripts; \
 		[ -e "docs" ] || ln -sf "$(DWM_SRC)/docs" docs; \
 		[ -e "dwm.c" ] || ln -sf "$(DWM_SRC)/dwm.c" dwm.c; \
+		[ -e "dwm" ] || ln -sf "$(DWM_SRC)/dwm" dwm; \
+		[ -e "dwm-oomayad" ] || ln -sf "$(DWM_SRC)/dwm-oomayad" dwm-oomayad; \
 		[ -e "config.mk" ] || ln -sf "$(DWM_SRC)/config.mk" config.mk; \
 		[ -e "config.def.h" ] || ln -sf "$(DWM_SRC)/config.def.h" config.def.h; \
 		[ -e "tests/fixtures" ] || ln -sf "$(DWM_SRC)/tests/fixtures" tests/fixtures; \

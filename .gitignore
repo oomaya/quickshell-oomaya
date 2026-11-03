@@ -6,6 +6,8 @@ tools/mv-shim
 /config/
 /scripts
 /dwm.c
+/dwm
+/dwm-oomayad
 /config.def.h
 /config.mk
 /CHANGELOG.md
