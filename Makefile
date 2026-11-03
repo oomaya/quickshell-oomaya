@@ -52,23 +52,27 @@ uninstall:
 		fi; \
 	fi
 
+DWM_SRC ?= $(firstword $(wildcard ../dwm-oomaya-pr1 ../dwm-oomaya $(USER_HOME)/.local/src/dwm-oomaya-pr1 $(USER_HOME)/.local/src/dwm-oomaya))
+
 fixtures:
-	@if [ -d "../dwm-oomaya" ]; then \
-		echo "==> Ensuring test fixtures from ../dwm-oomaya..."; \
+	@if [ -n "$(DWM_SRC)" ] && [ -d "$(DWM_SRC)" ]; then \
+		echo "==> Ensuring test fixtures from $(DWM_SRC)..."; \
 		if [ -L config ] && [ "$$(readlink config)" = "." ]; then rm -f config; fi; \
-		mkdir -p config; \
+		mkdir -p config tests; \
 		for f in themes.toml hotkeys.toml window-rules.toml; do \
-			[ -e "config/$$f" ] || cp "../dwm-oomaya/config/$$f" "config/$$f" 2>/dev/null || true; \
+			[ -e "config/$$f" ] || cp "$(DWM_SRC)/config/$$f" "config/$$f" 2>/dev/null || true; \
 		done; \
 		[ -e "config/quickshell" ] || ln -sf "../quickshell" "config/quickshell"; \
 		for s in dwm-packages.sh dwm-session-launch dwm-panel-settings dwm-lock dwm-system-health dwm-settings-theme check-deps.sh; do \
-			[ -e "bin/$$s" ] || ln -sf "../../dwm-oomaya/scripts/$$s" "bin/$$s" 2>/dev/null || cp "../dwm-oomaya/scripts/$$s" "bin/$$s"; \
+			[ -e "bin/$$s" ] || ln -sf "$(DWM_SRC)/scripts/$$s" "bin/$$s" 2>/dev/null || cp "$(DWM_SRC)/scripts/$$s" "bin/$$s"; \
 		done; \
 		[ -e "scripts" ] || ln -sf bin scripts; \
-		[ -e "docs" ] || ln -sf ../dwm-oomaya/docs docs; \
-		[ -e "dwm.c" ] || ln -sf ../dwm-oomaya/dwm.c dwm.c; \
-		[ -e "config.mk" ] || ln -sf ../dwm-oomaya/config.mk config.mk; \
-		[ -e "config.def.h" ] || ln -sf ../dwm-oomaya/config.def.h config.def.h; \
+		[ -e "docs" ] || ln -sf "$(DWM_SRC)/docs" docs; \
+		[ -e "dwm.c" ] || ln -sf "$(DWM_SRC)/dwm.c" dwm.c; \
+		[ -e "config.mk" ] || ln -sf "$(DWM_SRC)/config.mk" config.mk; \
+		[ -e "config.def.h" ] || ln -sf "$(DWM_SRC)/config.def.h" config.def.h; \
+		[ -e "tests/fixtures" ] || ln -sf "$(DWM_SRC)/tests/fixtures" tests/fixtures; \
+		[ -e "tests/qml" ] || ln -sf "$(DWM_SRC)/tests/qml" tests/qml; \
 	fi
 
 check: all fixtures
