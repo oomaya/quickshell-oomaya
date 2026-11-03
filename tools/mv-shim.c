@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
     }
 
     if (help) {
-        printf("Usage: mv [OPTION]... SOURCE DEST\n"
+        printf("Usage: mv (quickshell renameat2 shim) [OPTION]... SOURCE DEST\n"
                "  --exchange    exchange source and destination\n"
                "  --no-copy     do not copy if exchange fails\n"
                "  --update=none-fail fail if destination exists\n"
