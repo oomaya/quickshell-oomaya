@@ -1,6 +1,6 @@
 # Task Packet 003 — QuickShell QML State Bridge & Action Modernization
 
-**Status:** `ready`  
+**Status:** `done`  
 **Branch:** `packet/003-quickshell-qml-bridge-integration`  
 **Author (architect):** dwm-oomaya Tech Lead Pair (Antigravity Architect)  
 **Date:** 2026-11-05 KST  
@@ -102,3 +102,4 @@ Modernize `quickshell-oomaya` to seamlessly communicate with `omarchy-ctl` for u
 3. Run `make install` and test `dwm-quickshell-state state`.
 4. Leave notes with test output in your completion report.
 5. Notify Tech Lead for Gate 2 review.
+

@@ -235,19 +235,17 @@ Scope {
     }
 
     function switchWorkspace(index) {
-        switchWorkspaceProcess.command = ["oomaya-ctl", "view", (index + 1).toString()];
+        switchWorkspaceProcess.command = ["omarchy-ctl", "workspace", (index + 1).toString()];
         switchWorkspaceProcess.running = true;
     }
 
     function focusWindow(windowId) {
-        focusWindowProcess.command = ["oomaya-ctl", "focus", windowId];
+        focusWindowProcess.command = ["omarchy-ctl", "focus", windowId];
         focusWindowProcess.running = true;
     }
 
     function cycleLayout(direction) {
-        cycleLayoutProcess.command = direction > 0
-            ? ["xdotool", "key", "Super+bracketright"]
-            : ["xdotool", "key", "Super+bracketleft"];
+        cycleLayoutProcess.command = ["omarchy-ctl", "layout", direction > 0 ? "next" : "prev"];
         cycleLayoutProcess.running = true;
     }
 
@@ -266,21 +264,21 @@ Scope {
     Process {
         id: switchWorkspaceProcess
 
-        command: ["oomaya-ctl", "view", (root.currentWorkspace + 1).toString()]
+        command: ["omarchy-ctl", "workspace", (root.currentWorkspace + 1).toString()]
         running: false
     }
 
     Process {
         id: focusWindowProcess
 
-        command: ["oomaya-ctl", "focus", "0"]
+        command: ["omarchy-ctl", "focus", "0"]
         running: false
     }
 
     Process {
         id: cycleLayoutProcess
 
-        command: ["xdotool", "key", "Super+bracketright"]
+        command: ["omarchy-ctl", "layout", "next"]
         running: false
     }
 }

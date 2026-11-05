@@ -1,9 +1,26 @@
 #!/bin/sh
 set -eu
 
-# High-performance fast path: delegate to compiled C binary if available
-# and not overridden by unit test harness
+# Prefer the universal controller, then the legacy C binary, unless the
+# unit test harness requests the shell fallback.
 if [ -z "${DWM_TEST_MONITOR_DESKTOPS:-}" ] && [ -z "${DWM_TEST_FULLSCREEN_MONITORS:-}" ] && [ -z "${DWM_TEST_SELECTED_MONITOR:-}" ]; then
+	if command -v omarchy-ctl >/dev/null 2>&1; then
+		if [ "$#" -eq 0 ]; then
+			set -- state
+		fi
+		# The legacy switch command uses zero-based workspace indexes.
+		if [ "${1:-}" = switch ]; then
+			target=${2:-}
+			case $target in
+			'' | *[!0-9]*)
+				printf 'usage: %s switch <zero-based-workspace>\n' "$0" >&2
+				exit 2
+				;;
+			esac
+			set -- workspace "$((target + 1))"
+		fi
+		exec omarchy-ctl "$@"
+	fi
 	if command -v dwm-quickshell-state-bin >/dev/null 2>&1; then
 		exec dwm-quickshell-state-bin "$@"
 	fi

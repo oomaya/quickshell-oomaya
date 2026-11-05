@@ -34,6 +34,9 @@ install: all
 	mkdir -p "$(BIN_DIR)"
 	install -Dm755 $(SCRIPTS) "$(BIN_DIR)/"
 	install -Dm755 tools/dwm-quickshell-state-bin "$(BIN_DIR)/dwm-quickshell-state-bin"
+	@if command -v omarchy-ctl >/dev/null 2>&1 || [ -x "$(BIN_DIR)/omarchy-ctl" ]; then \
+		ln -sf omarchy-ctl "$(BIN_DIR)/oomaya-ctl"; \
+	fi
 	@if ! /bin/mv --help 2>&1 | grep -q -- '--exchange'; then \
 		echo "==> Coreutils < 9.5 detected; installing mv shim to $(BIN_DIR)..."; \
 		install -Dm755 tools/mv-shim "$(BIN_DIR)/mv"; \
