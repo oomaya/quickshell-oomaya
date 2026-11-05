@@ -44,7 +44,7 @@ jobs:
       - name: Setup fixtures
         working-directory: quickshell-oomaya
         run: |
-          make fixtures
+          make fixtures DWM_SRC="${{ github.workspace }}/dwm-oomaya"
 
       - name: Test installation idempotency
         working-directory: quickshell-oomaya

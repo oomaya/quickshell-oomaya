@@ -56,6 +56,9 @@ uninstall:
 	fi
 
 DWM_SRC ?= $(firstword $(wildcard ../dwm-oomaya-pr1 ../dwm-oomaya $(USER_HOME)/.local/src/dwm-oomaya-pr1 $(USER_HOME)/.local/src/dwm-oomaya))
+ifneq ($(DWM_SRC),)
+override DWM_SRC := $(abspath $(DWM_SRC))
+endif
 
 fixtures:
 	@if [ -n "$(DWM_SRC)" ] && [ -d "$(DWM_SRC)" ]; then \
