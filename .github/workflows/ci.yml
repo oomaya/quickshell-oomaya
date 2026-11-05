@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build & Validate Quickshell Tools
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libx11-dev
+
+      - name: Build C Tools (-Werror)
+        run: |
+          make clean
+          make all
+
+      - name: Test installation idempotency
+        run: |
+          make install USER_HOME=/tmp/test-home
+          [ -f /tmp/test-home/.local/bin/dwm-quickshell-state ]
+          [ -f /tmp/test-home/.local/bin/dwm-quickshell-state-bin ]
+          [ -d /tmp/test-home/.config/quickshell ]
+
+      - name: Verify shell script syntax
+        run: |
+          find bin -type f -exec sh -n {} +
+
+      - name: Run unit test suite
+        run: |
+          bash tests/test-quickshell-controls.sh
+          bash tests/test-quickshell-launcher.sh
+          bash tests/test-quickshell-design-system.sh
