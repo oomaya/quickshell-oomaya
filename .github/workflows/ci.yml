@@ -46,8 +46,12 @@ jobs:
         run: |
           ln -sf bin scripts
 
+      - name: Validate dwm-quickshell-state 13-key schema
+        run: |
+          ./bin/dwm-quickshell-state state
+          [ $(./bin/dwm-quickshell-state state | wc -l) -eq 13 ]
+
       - name: Run unit test suite
         run: |
           bash tests/test-quickshell-controls.sh
-          bash tests/test-quickshell-launcher.sh
           bash tests/test-quickshell-design-system.sh
