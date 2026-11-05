@@ -19,7 +19,16 @@ jobs:
     name: Build & Validate Quickshell Tools
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout quickshell-oomaya
+        uses: actions/checkout@v4
+        with:
+          path: quickshell-oomaya
+
+      - name: Checkout dwm-oomaya fixtures
+        uses: actions/checkout@v4
+        with:
+          repository: oomaya/dwm-oomaya
+          path: dwm-oomaya
 
       - name: Install build dependencies
         run: |
@@ -27,11 +36,18 @@ jobs:
           sudo apt-get install -y libx11-dev
 
       - name: Build C Tools (-Werror)
+        working-directory: quickshell-oomaya
         run: |
           make clean
           make all
 
+      - name: Setup fixtures
+        working-directory: quickshell-oomaya
+        run: |
+          make fixtures
+
       - name: Test installation idempotency
+        working-directory: quickshell-oomaya
         run: |
           make install USER_HOME=/tmp/test-home
           [ -f /tmp/test-home/.local/bin/dwm-quickshell-state ]
@@ -39,19 +55,19 @@ jobs:
           [ -d /tmp/test-home/.config/quickshell ]
 
       - name: Verify shell script syntax
+        working-directory: quickshell-oomaya
         run: |
           find bin -type f -exec sh -n {} +
 
-      - name: Setup local script symlinks
-        run: |
-          ln -sf bin scripts
-
       - name: Validate dwm-quickshell-state 13-key schema
+        working-directory: quickshell-oomaya
         run: |
           ./bin/dwm-quickshell-state state
           [ $(./bin/dwm-quickshell-state state | wc -l) -eq 13 ]
 
       - name: Run unit test suite
+        working-directory: quickshell-oomaya
         run: |
           bash tests/test-quickshell-controls.sh
+          bash tests/test-quickshell-launcher.sh
           bash tests/test-quickshell-design-system.sh
